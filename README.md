@@ -69,6 +69,8 @@
         </RelativeLayout>
 ```
 
+## 特别注意：本工具类设置了布局全屏显示（SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN）基于这个特性实现的功能哦～
+
 1、假如输入框一栏 **有表情** 按钮时使用 **Example1SwitchKeyboardUtil** 详情可看[SecondActivity2](https://github.com/FlyJingFish/SwitchKeyboard/blob/master/app/src/main/java/com/flyjingfish/switchkeyboard/SecondActivity2.java)
 
 2、假如输入框一栏 **没有表情** 按钮时使用 **Example2SwitchKeyboardUtil** 详情可看[SecondActivity3](https://github.com/FlyJingFish/SwitchKeyboard/blob/master/app/src/main/java/com/flyjingfish/switchkeyboard/SecondActivity3.java)
