@@ -28,7 +28,7 @@ public class SecondActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivitySecondBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        baseSwitchKeyboardUtil = new BaseSwitchKeyboardUtil(this);
+        baseSwitchKeyboardUtil = new BaseSwitchKeyboardUtil(this,true);
         baseSwitchKeyboardUtil.attachLifecycle(this);
         baseSwitchKeyboardUtil.setBaseViews(binding.etContent,binding.tvAudio, binding.tvAudioTouch, binding.llMenu);
         baseSwitchKeyboardUtil.setOnKeyboardMenuListener(new BaseSwitchKeyboardUtil.OnKeyboardMenuListener() {

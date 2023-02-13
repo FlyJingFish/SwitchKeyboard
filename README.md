@@ -1,5 +1,5 @@
 # SwitchKeyboard
-## 切换键盘和菜单的工具类
+## 切换键盘和菜单的工具类,旨在解决切换键盘和菜单时的跳动问题
 
 [![](https://jitpack.io/v/FlyJingFish/SwitchKeyboard.svg)](https://jitpack.io/#FlyJingFish/SwitchKeyboard)
 [![GitHub stars](https://img.shields.io/github/stars/FlyJingFish/SwitchKeyboard.svg)](https://github.com/FlyJingFish/SwitchKeyboard/stargazers)
@@ -8,7 +8,7 @@
 [![GitHub license](https://img.shields.io/github/license/FlyJingFish/SwitchKeyboard.svg)](https://github.com/FlyJingFish/SwitchKeyboard/blob/master/LICENSE)
 
 
-<img src="https://github.com/FlyJingFish/SwitchKeyboard/blob/master/screenshot/Screenshot_20221013_130230.jpg" width="405px" height="842px" alt="show" />
+<img src="https://github.com/FlyJingFish/SwitchKeyboard/blob/master/screenshot/Screenrecording_20230213_185236.gif" width="320px" height="640px" alt="show" />
 
 
 ## 第一步，根目录build.gradle
@@ -30,13 +30,52 @@
 ```
 ## 第三步，使用说明
 
+**布局要求**
+
+```xml
+        <RelativeLayout
+            android:id="@+id/ll_menu_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical">
+        <!--     ll_msg_content 是存放输入框一栏的       -->
+            <RelativeLayout
+                android:id="@+id/ll_msg_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="13dp"
+                android:paddingVertical="13dp"
+                android:gravity="center_vertical"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:background="@drawable/bg_edit_person_info"
+                android:orientation="horizontal">
+            </RelativeLayout>
+        <!--     ll_menu 是存放所有显示在输入框一栏下边的，例如表情，多个菜单按钮，详情可看demo       -->
+            <RelativeLayout
+                android:id="@+id/ll_menu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_below="@+id/ll_msg_content"
+                android:paddingHorizontal="13dp"
+                android:background="@color/white"
+                android:visibility="gone"
+                android:orientation="horizontal">
+            </RelativeLayout>
+
+        </RelativeLayout>
+```
+
 1、假如输入框一栏**有表情**按钮时使用 Example1SwitchKeyboardUtil 详情可看[SecondActivity2](https://github.com/FlyJingFish/OpenImage/blob/master/app/src/main/java/com/flyjingfish/switchkeyboard/SecondActivity2)
 
 2、假如输入框一栏**没有表情**按钮时使用 Example2SwitchKeyboardUtil 详情可看[SecondActivity3](https://github.com/FlyJingFish/OpenImage/blob/master/app/src/main/java/com/flyjingfish/switchkeyboard/SecondActivity3)
 
 3、如需完全自定义切换逻辑可使用BaseSwitchKeyboardUtil [SecondActivity](https://github.com/FlyJingFish/OpenImage/blob/master/app/src/main/java/com/flyjingfish/switchkeyboard/SecondActivity)
 
-
+### 更多使用详情请看代码
 
 # 最后推荐我写的另一个库，轻松实现在应用内点击小图查看大图的动画放大效果
 
