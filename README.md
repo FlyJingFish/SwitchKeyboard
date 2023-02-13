@@ -77,7 +77,7 @@
 
 3、如需完全 **自定义** 切换逻辑可使用 BaseSwitchKeyboardUtil [SecondActivity](https://github.com/FlyJingFish/SwitchKeyboard/blob/master/app/src/main/java/com/flyjingfish/switchkeyboard/SecondActivity.java)
 
-### 更多使用详情请看代码
+### 菜单是否和键盘告诉一直可根据构造参数设置，更多使用详情请看代码
 
 # 最后推荐我写的另一个库，轻松实现在应用内点击小图查看大图的动画放大效果
 
