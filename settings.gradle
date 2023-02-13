@@ -1,0 +1,3 @@
+rootProject.name = "HollowTextView"
+include ':app'
+include ':library'

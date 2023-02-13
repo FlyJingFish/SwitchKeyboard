@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+    <View
+        android:id="@+id/v_status"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:fitsSystemWindows="true"
+        android:background="@color/black"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/v_status">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/ll_menu_content">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/ll_menu_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical">
+
+
+            <RelativeLayout
+                android:id="@+id/ll_msg_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="13dp"
+                android:paddingVertical="13dp"
+                android:gravity="center_vertical"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:background="@drawable/bg_edit_person_info"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/tv_audio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:gravity="center"
+                    android:paddingHorizontal="5dp"
+                    android:text="🎙️"
+                    android:textColor="@color/white"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/bg_send_person_info"
+                    android:textSize="16sp" />
+                <EditText
+                    android:id="@+id/et_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="30dp"
+                    android:text=""
+                    android:layout_marginStart="10dp"
+                    android:layout_toStartOf="@+id/tv_face"
+                    android:layout_toEndOf="@+id/tv_audio"
+                    android:background="@drawable/bg_edit_send_person_info"
+                    android:padding="10dp"
+                    android:textSize="13sp" />
+                <TextView
+                    android:id="@+id/tv_audio_touch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="30dp"
+                    android:text="按住说话"
+                    android:gravity="center"
+                    android:visibility="gone"
+                    android:layout_marginStart="10dp"
+                    android:layout_toStartOf="@+id/tv_face"
+                    android:layout_toEndOf="@+id/tv_audio"
+                    android:background="@drawable/bg_edit_send_person_info"
+                    android:padding="10dp"
+                    android:textSize="13sp" />
+                <TextView
+                    android:id="@+id/tv_face"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:gravity="center"
+                    android:paddingHorizontal="2dp"
+                    android:layout_marginStart="10dp"
+                    android:text="😄"
+                    android:textColor="@color/white"
+                    android:layout_centerVertical="true"
+                    android:layout_toStartOf="@+id/tv_more"
+                    android:background="@drawable/bg_send_person_info"
+                    android:textSize="20sp" />
+                <TextView
+                    android:id="@+id/tv_more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:gravity="center"
+                    android:paddingHorizontal="5dp"
+                    android:layout_marginStart="10dp"
+                    android:text="➕"
+                    android:layout_toStartOf="@+id/tv_send"
+                    android:textColor="@color/white"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/bg_send_person_info"
+                    android:textSize="16sp" />
+                <TextView
+                    android:id="@+id/tv_send"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:gravity="center"
+                    android:layout_alignParentEnd="true"
+                    android:paddingHorizontal="16dp"
+                    android:layout_marginStart="10dp"
+                    android:text="Send"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/white"
+                    android:background="@drawable/bg_send_person_info"
+                    android:textSize="13sp" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/ll_menu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_below="@+id/ll_msg_content"
+                android:paddingHorizontal="13dp"
+                android:background="@color/white"
+                android:visibility="gone"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:id="@+id/ll_menu_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="visible"
+                    android:gravity="center"
+                    android:paddingVertical="80dp"
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="80dp"
+                            android:layout_height="30dp"
+                            android:gravity="center"
+                            android:paddingHorizontal="16dp"
+                            android:text="Menu0"
+                            android:textColor="@color/white"
+                            android:background="@drawable/bg_send_person_info"
+                            android:textSize="13sp" />
+                        <TextView
+                            android:layout_width="80dp"
+                            android:layout_height="30dp"
+                            android:gravity="center"
+                            android:paddingHorizontal="16dp"
+                            android:layout_marginStart="10dp"
+                            android:text="Menu1"
+                            android:textColor="@color/white"
+                            android:background="@drawable/bg_send_person_info"
+                            android:textSize="13sp" />
+                        <TextView
+                            android:layout_width="80dp"
+                            android:layout_height="30dp"
+                            android:gravity="center"
+                            android:paddingHorizontal="16dp"
+                            android:layout_marginStart="10dp"
+                            android:text="Menu2"
+                            android:textColor="@color/white"
+                            android:background="@drawable/bg_send_person_info"
+                            android:textSize="13sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_marginTop="20dp"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="80dp"
+                            android:layout_height="30dp"
+                            android:gravity="center"
+                            android:paddingHorizontal="16dp"
+                            android:text="Menu4"
+                            android:textColor="@color/white"
+                            android:background="@drawable/bg_send_person_info"
+                            android:textSize="13sp" />
+                        <TextView
+                            android:layout_width="80dp"
+                            android:layout_height="30dp"
+                            android:gravity="center"
+                            android:paddingHorizontal="16dp"
+                            android:layout_marginStart="10dp"
+                            android:text="Menu5"
+                            android:textColor="@color/white"
+                            android:background="@drawable/bg_send_person_info"
+                            android:textSize="13sp" />
+                        <TextView
+                            android:layout_width="80dp"
+                            android:layout_height="30dp"
+                            android:gravity="center"
+                            android:paddingHorizontal="16dp"
+                            android:layout_marginStart="10dp"
+                            android:text="Menu6"
+                            android:textColor="@color/white"
+                            android:background="@drawable/bg_send_person_info"
+                            android:textSize="13sp" />
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:id="@+id/ll_emoji"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:visibility="gone">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:textSize="40sp"
+                        android:layout_centerInParent="true"
+                        android:text="大表情"/>
+                </RelativeLayout>
+            </RelativeLayout>
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+
+</RelativeLayout>
