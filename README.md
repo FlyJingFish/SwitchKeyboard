@@ -69,11 +69,11 @@
         </RelativeLayout>
 ```
 
-1、假如输入框一栏**有表情**按钮时使用 Example1SwitchKeyboardUtil 详情可看[SecondActivity2](https://github.com/FlyJingFish/OpenImage/blob/master/app/src/main/java/com/flyjingfish/switchkeyboard/SecondActivity2.java)
+1、假如输入框一栏 **有表情** 按钮时使用 **Example1SwitchKeyboardUtil** 详情可看[SecondActivity2](https://github.com/FlyJingFish/SwitchKeyboard/blob/master/app/src/main/java/com/flyjingfish/switchkeyboard/SecondActivity2.java)
 
-2、假如输入框一栏**没有表情**按钮时使用 Example2SwitchKeyboardUtil 详情可看[SecondActivity3](https://github.com/FlyJingFish/OpenImage/blob/master/app/src/main/java/com/flyjingfish/switchkeyboard/SecondActivity3.java)
+2、假如输入框一栏 **没有表情** 按钮时使用 **Example2SwitchKeyboardUtil** 详情可看[SecondActivity3](https://github.com/FlyJingFish/SwitchKeyboard/blob/master/app/src/main/java/com/flyjingfish/switchkeyboard/SecondActivity3.java)
 
-3、如需完全自定义切换逻辑可使用BaseSwitchKeyboardUtil [SecondActivity](https://github.com/FlyJingFish/OpenImage/blob/master/app/src/main/java/com/flyjingfish/switchkeyboard/SecondActivity.java)
+3、如需完全 **自定义** 切换逻辑可使用 BaseSwitchKeyboardUtil [SecondActivity](https://github.com/FlyJingFish/SwitchKeyboard/blob/master/app/src/main/java/com/flyjingfish/switchkeyboard/SecondActivity.java)
 
 ### 更多使用详情请看代码
 
