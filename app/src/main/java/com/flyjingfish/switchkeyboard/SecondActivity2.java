@@ -19,10 +19,11 @@ public class SecondActivity2 extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        baseChatKeyboardUtil = new Example1SwitchKeyboardUtil(this,false);
+        baseChatKeyboardUtil.checkSoftMode();
         super.onCreate(savedInstanceState);
         binding = ActivitySecondBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        baseChatKeyboardUtil = new Example1SwitchKeyboardUtil(this,false);
         baseChatKeyboardUtil.attachLifecycle(this);
         baseChatKeyboardUtil.setBaseViews(binding.etContent, binding.tvAudio, binding.tvAudioTouch, binding.llMenu);
         baseChatKeyboardUtil.setMoreViews(binding.tvFace, binding.tvMore, binding.llMenuBtn, binding.llEmoji);

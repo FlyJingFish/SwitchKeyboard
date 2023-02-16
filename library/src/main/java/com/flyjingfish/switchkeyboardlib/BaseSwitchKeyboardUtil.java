@@ -262,4 +262,31 @@ public class BaseSwitchKeyboardUtil {
     public void setOnKeyboardMenuListener(OnKeyboardMenuListener onKeyboardMenuListener) {
         this.onKeyboardMenuListener = onKeyboardMenuListener;
     }
+
+    public void checkSoftMode(){
+        Window window = activity.getWindow();
+        final WindowManager.LayoutParams attrs = window.getAttributes();
+        int softMode = attrs.softInputMode;
+        if (((softMode | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING) == softMode)
+                ||((softMode | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN) == softMode)
+                ||((softMode | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE) == softMode)){
+            int newSoftMode = WindowManager.LayoutParams.SOFT_INPUT_STATE_UNSPECIFIED;
+            if ((softMode | WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN) == softMode){
+                newSoftMode |= WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN;
+            }
+            if ((softMode | WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN) == softMode){
+                newSoftMode |= WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN;
+            }
+            if ((softMode | WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE) == softMode){
+                newSoftMode |= WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE;
+            }
+            if ((softMode | WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE) == softMode){
+                newSoftMode |= WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE;
+            }
+            if ((softMode | WindowManager.LayoutParams.SOFT_INPUT_STATE_UNCHANGED) == softMode){
+                newSoftMode |= WindowManager.LayoutParams.SOFT_INPUT_STATE_UNCHANGED;
+            }
+            window.setSoftInputMode(newSoftMode|WindowManager.LayoutParams.SOFT_INPUT_ADJUST_UNSPECIFIED);
+        }
+    }
 }

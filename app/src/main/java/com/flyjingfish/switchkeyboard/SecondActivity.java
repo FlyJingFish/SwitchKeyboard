@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -25,10 +26,11 @@ public class SecondActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        baseSwitchKeyboardUtil = new BaseSwitchKeyboardUtil(this,true);
+        baseSwitchKeyboardUtil.checkSoftMode();
         super.onCreate(savedInstanceState);
         binding = ActivitySecondBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        baseSwitchKeyboardUtil = new BaseSwitchKeyboardUtil(this,true);
         baseSwitchKeyboardUtil.attachLifecycle(this);
         baseSwitchKeyboardUtil.setBaseViews(binding.etContent,binding.tvAudio, binding.tvAudioTouch, binding.llMenu);
         baseSwitchKeyboardUtil.setOnKeyboardMenuListener(new BaseSwitchKeyboardUtil.OnKeyboardMenuListener() {
