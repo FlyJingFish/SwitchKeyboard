@@ -86,7 +86,7 @@
 
 ### 3、菜单是否和键盘高度一致可根据构造参数设置，更多使用详情请看代码
 
-### 4、在 Activity 调用 super.onCreate(savedInstanceState) 之前，先调用 checkSoftMode()
+### 4、在 Activity 调用 setContentView() 之前，先调用 checkSoftMode()
 
 ## 关于打开页面时键盘的状态
 
