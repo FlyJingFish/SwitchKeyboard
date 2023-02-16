@@ -19,9 +19,9 @@ public class SecondActivity2 extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         baseChatKeyboardUtil = new Example1SwitchKeyboardUtil(this,false);
         baseChatKeyboardUtil.checkSoftMode();
-        super.onCreate(savedInstanceState);
         binding = ActivitySecondBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         baseChatKeyboardUtil.attachLifecycle(this);
