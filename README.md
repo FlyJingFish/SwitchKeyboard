@@ -69,13 +69,6 @@
         </RelativeLayout>
 ```
 
-
-## 特别注意
-
-### 1、本工具类设置了布局全屏显示,并设置了透明状态栏，请自行适配顶部返回键一栏距离顶部的距离
-
-### 2、布局中不可使用 fitsSystemWindows 属性为true
-
 **代码中使用方式如下：**
 
 1、假如输入框一栏 **有表情** 按钮时使用 **Example1SwitchKeyboardUtil** 详情可看[SecondActivity2](https://github.com/FlyJingFish/SwitchKeyboard/blob/master/app/src/main/java/com/flyjingfish/switchkeyboard/SecondActivity2.java)
@@ -84,7 +77,14 @@
 
 3、如需完全 **自定义** 切换逻辑可使用 BaseSwitchKeyboardUtil [SecondActivity](https://github.com/FlyJingFish/SwitchKeyboard/blob/master/app/src/main/java/com/flyjingfish/switchkeyboard/SecondActivity.java)
 
-### 菜单是否和键盘高度一致可根据构造参数设置，更多使用详情请看代码
+
+## 特别注意
+
+### 1、本工具类设置了布局全屏显示,并设置了透明状态栏，请自行适配顶部返回键一栏距离顶部的距离
+
+### 2、布局中不可使用 fitsSystemWindows 属性为true
+
+### 3、菜单是否和键盘高度一致可根据构造参数设置，更多使用详情请看代码
 
 
 # 最后推荐我写的另一个库，轻松实现在应用内点击小图查看大图的动画放大效果
