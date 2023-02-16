@@ -33,40 +33,40 @@
 **布局要求**
 
 ```xml
+    <RelativeLayout
+        android:id="@+id/ll_menu_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+    <!--     ll_msg_content 是存放输入框一栏的（就是被键盘顶起来的那部分）       -->
         <RelativeLayout
-            android:id="@+id/ll_menu_content"
+            android:id="@+id/ll_msg_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingHorizontal="13dp"
+            android:paddingVertical="13dp"
             android:gravity="center_vertical"
-            android:layout_alignParentBottom="true"
-            android:orientation="vertical">
-        <!--     ll_msg_content 是存放输入框一栏的（就是被键盘顶起来的那部分）       -->
-            <RelativeLayout
-                android:id="@+id/ll_msg_content"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingHorizontal="13dp"
-                android:paddingVertical="13dp"
-                android:gravity="center_vertical"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:background="@drawable/bg_edit_person_info"
-                android:orientation="horizontal">
-            </RelativeLayout>
-        <!--     ll_menu 是存放所有显示在输入框一栏下边的，例如表情，多个菜单按钮，详情可看demo       -->
-            <RelativeLayout
-                android:id="@+id/ll_menu"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:layout_below="@+id/ll_msg_content"
-                android:paddingHorizontal="13dp"
-                android:background="@color/white"
-                android:visibility="gone"
-                android:orientation="horizontal">
-            </RelativeLayout>
-
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:background="@drawable/bg_edit_person_info"
+            android:orientation="horizontal">
         </RelativeLayout>
+    <!--     ll_menu 是存放所有显示在输入框一栏下边的，例如表情，多个菜单按钮，详情可看demo       -->
+        <RelativeLayout
+            android:id="@+id/ll_menu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_below="@+id/ll_msg_content"
+            android:paddingHorizontal="13dp"
+            android:background="@color/white"
+            android:visibility="gone"
+            android:orientation="horizontal">
+        </RelativeLayout>
+
+    </RelativeLayout>
 ```
 
 **代码中使用方式如下：**
