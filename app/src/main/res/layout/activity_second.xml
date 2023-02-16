@@ -6,11 +6,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MainActivity">
-    <View
+    <TextView
         android:id="@+id/v_status"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:fitsSystemWindows="true"
+        android:textColor="@color/white"
+        android:text="Title"
+        android:gravity="center"
         android:background="@color/black"/>
     <RelativeLayout
         android:layout_width="match_parent"
