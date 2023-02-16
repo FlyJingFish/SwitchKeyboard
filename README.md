@@ -40,7 +40,7 @@
             android:gravity="center_vertical"
             android:layout_alignParentBottom="true"
             android:orientation="vertical">
-        <!--     ll_msg_content 是存放输入框一栏的       -->
+        <!--     ll_msg_content 是存放输入框一栏的（就是被键盘顶起来的那部分）       -->
             <RelativeLayout
                 android:id="@+id/ll_msg_content"
                 android:layout_width="match_parent"
