@@ -180,9 +180,9 @@ public class Example2Activity extends AppCompatActivity {
 
 **更多代码中使用方式如下：**
 
-1、假如有按钮**在输入框一栏** 打开底部隐藏菜单时 详情可看[Example1Activity](https://github.com/FlyJingFish/SwitchKeyboard/blob/master/app/src/main/java/com/flyjingfish/switchkeyboard/Example1Activity.java) 对应布局 [Example1Activity](https://github.com/FlyJingFish/SwitchKeyboard/blob/master/app/src/main/res/layout/activity_example1.xml)
+1、假如有按钮**在输入框一栏** 打开底部隐藏菜单时 详情可看[Example1Activity](https://github.com/FlyJingFish/SwitchKeyboard/blob/master/app/src/main/java/com/flyjingfish/switchkeyboard/Example1Activity.java) 对应布局 [activity_example1](https://github.com/FlyJingFish/SwitchKeyboard/blob/master/app/src/main/res/layout/activity_example1.xml)
 
-2、假如有按钮**不在输入框一栏时** 打开底部隐藏菜单时 详情可看[Example2Activity](https://github.com/FlyJingFish/SwitchKeyboard/blob/master/app/src/main/java/com/flyjingfish/switchkeyboard/Example2Activity.java) 对应布局 [Example1Activity](https://github.com/FlyJingFish/SwitchKeyboard/blob/master/app/src/main/res/layout/activity_example1.xml)
+2、假如有按钮**不在输入框一栏时** 打开底部隐藏菜单时 详情可看[Example2Activity](https://github.com/FlyJingFish/SwitchKeyboard/blob/master/app/src/main/java/com/flyjingfish/switchkeyboard/Example2Activity.java) 对应布局 [activity_example2](https://github.com/FlyJingFish/SwitchKeyboard/blob/master/app/src/main/res/layout/activity_example2.xml)
 
 
 
