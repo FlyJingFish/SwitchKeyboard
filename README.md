@@ -137,6 +137,7 @@ public class Example2Activity extends AppCompatActivity {
         baseChatKeyboardUtil.setOnKeyboardMenuListener(new BaseSwitchKeyboardUtil.OnKeyboardMenuListener() {
             @Override
             public void onScrollToBottom() {
+                //如果你需要让聊天内容在打开菜单或键盘时滑动到底部，则在此写代码
                 scrollToBottom();
             }
 
