@@ -6,16 +6,16 @@ import android.view.KeyEvent;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.flyjingfish.switchkeyboard.databinding.ActivitySecondBinding;
-import com.flyjingfish.switchkeyboardlib.SwitchKeyboardUtil;
+import com.flyjingfish.switchkeyboard.databinding.ActivityExample1Binding;
 import com.flyjingfish.switchkeyboardlib.MenuModeView;
+import com.flyjingfish.switchkeyboardlib.SwitchKeyboardUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Example1Activity extends AppCompatActivity {
     private SwitchKeyboardUtil baseSwitchKeyboardUtil;
-    private ActivitySecondBinding binding;
+    private ActivityExample1Binding binding;
 
 
     @Override
@@ -23,7 +23,7 @@ public class Example1Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         baseSwitchKeyboardUtil = new SwitchKeyboardUtil(this);
         baseSwitchKeyboardUtil.checkSoftMode();
-        binding = ActivitySecondBinding.inflate(getLayoutInflater());
+        binding = ActivityExample1Binding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         baseSwitchKeyboardUtil.setMenuViewHeightEqualKeyboard(true);
         baseSwitchKeyboardUtil.attachLifecycle(this);

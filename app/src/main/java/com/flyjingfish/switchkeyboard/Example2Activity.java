@@ -2,29 +2,28 @@ package com.flyjingfish.switchkeyboard;
 
 import android.os.Bundle;
 import android.view.KeyEvent;
-import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.flyjingfish.switchkeyboard.databinding.ActivitySecond2Binding;
+import com.flyjingfish.switchkeyboard.databinding.ActivityExample2Binding;
 import com.flyjingfish.switchkeyboardlib.BaseSwitchKeyboardUtil;
-import com.flyjingfish.switchkeyboardlib.SwitchKeyboardUtil;
 import com.flyjingfish.switchkeyboardlib.MenuModeView;
+import com.flyjingfish.switchkeyboardlib.SwitchKeyboardUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Example2Activity extends AppCompatActivity {
     private SwitchKeyboardUtil baseChatKeyboardUtil;
-    private ActivitySecond2Binding binding;
+    private ActivityExample2Binding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         baseChatKeyboardUtil = new SwitchKeyboardUtil(this);
         baseChatKeyboardUtil.checkSoftMode();
-        binding = ActivitySecond2Binding.inflate(getLayoutInflater());
+        binding = ActivityExample2Binding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         baseChatKeyboardUtil.setMenuViewHeightEqualKeyboard(true);
         baseChatKeyboardUtil.attachLifecycle(this);
