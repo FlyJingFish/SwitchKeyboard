@@ -10,7 +10,7 @@
 
 ## [点此下载apk,也可扫下边二维码下载](https://github.com/FlyJingFish/SwitchKeyboard/blob/master/apk/release/app-release.apk?raw=true)
 
-<img src="https://github.com/FlyJingFish/SwitchKeyboard/blob/master/screenshot/download_qrcode.png" alt="show" width="200px" alt="show" />
+<img src="https://github.com/FlyJingFish/SwitchKeyboard/blob/master/screenshot/download_qrcode.png" alt="show" width="200px" height="200px" />
 
 <img src="https://github.com/FlyJingFish/SwitchKeyboard/blob/master/screenshot/Screenrecording_20230213_185236.gif" width="320px" height="640px" alt="show" />
 
