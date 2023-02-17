@@ -57,7 +57,7 @@
             android:background="@drawable/bg_edit_person_info"
             android:orientation="horizontal">
         </RelativeLayout>
-    <!--     ll_menu 是存放所有显示在输入框一栏下边的，例如表情，多个菜单按钮，详情可看demo       -->
+    <!--     ll_menu 是存放所有显示在输入框一栏下边的，例如表情、多个功能按钮、常用语等等，详情可看demo       -->
         <RelativeLayout
             android:id="@+id/ll_menu"
             android:layout_width="match_parent"
@@ -68,6 +68,34 @@
             android:background="@color/white"
             android:visibility="gone"
             android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/ll_menu_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                android:gravity="center"
+                android:orientation="vertical">
+                <!--     比方说这块是放很多个功能按钮的       -->
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/ll_emoji"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone">
+                <!--     比方说这块是放表情相关的       -->
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_word"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="gone">
+                <!--     比方说这块放常用语的       -->
+            </LinearLayout>
         </RelativeLayout>
 
     </RelativeLayout>
