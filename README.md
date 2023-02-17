@@ -69,7 +69,79 @@
     </RelativeLayout>
 ```
 
-**代码中使用方式如下：**
+```java
+
+public class Example2Activity extends AppCompatActivity {
+    private SwitchKeyboardUtil baseChatKeyboardUtil;
+    private ActivitySecond2Binding binding;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        baseChatKeyboardUtil = new SwitchKeyboardUtil(this, true);
+        //checkSoftMode 必须在 setContentView 之前调用
+        baseChatKeyboardUtil.checkSoftMode();
+        binding = ActivitySecond2Binding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+        baseChatKeyboardUtil.attachLifecycle(this);
+        //输入框
+        baseChatKeyboardUtil.setInputEditText(binding.etContent);
+        //切换语音的按钮
+        baseChatKeyboardUtil.setAudioBtn(binding.tvAudio);
+        //语音录制按钮
+        baseChatKeyboardUtil.setAudioTouchVIew(binding.tvAudioTouch);
+        //存放所有菜单的布局
+        baseChatKeyboardUtil.setMenuViewContainer(binding.llMenu);
+        //设置切换菜单的切换按钮和菜单布局
+        baseChatKeyboardUtil.setToggleMenuViews(new MenuModeView(binding.tvMore, binding.llMenuBtn),
+                new MenuModeView(binding.tvFace, binding.llEmoji, binding.tvFaceBack,true),
+                new MenuModeView(binding.tvWord, binding.llWord, binding.tvWordBack,true));
+        //设置监听
+        baseChatKeyboardUtil.setOnKeyboardMenuListener(new BaseSwitchKeyboardUtil.OnKeyboardMenuListener() {
+            @Override
+            public void onScrollToBottom() {
+                scrollToBottom();
+            }
+
+            @Override
+            public void onKeyboardHide(int keyboardHeight) {
+                //当键盘隐藏后回调
+            }
+
+            @Override
+            public void onKeyboardShow(int keyboardHeight) {
+                //当键盘现实后回调
+            }
+
+            @Override
+            public void onCallShowKeyboard() {
+                //当调用显示键盘前回调
+            }
+
+            @Override
+            public void onCallHideKeyboard() {
+                //当调用隐藏键盘前回调
+            }
+        });
+    }
+
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        //此处是用于点击手机返回按钮时关闭菜单
+        if (keyCode == KeyEvent.KEYCODE_BACK && baseChatKeyboardUtil.onKeyDown(keyCode, event)) {
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    private void scrollToBottom() {
+        binding.rv.scrollToPosition(binding.rv.getAdapter().getItemCount() - 1);
+    }
+}
+```
+
+**更多代码中使用方式如下：**
 
 1、假如有按钮**在输入框一栏** 打开底部隐藏菜单时 详情可看[Example1Activity](https://github.com/FlyJingFish/SwitchKeyboard/blob/master/app/src/main/java/com/flyjingfish/switchkeyboard/Example1Activity.java)
 
