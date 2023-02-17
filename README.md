@@ -69,6 +69,8 @@
     </RelativeLayout>
 ```
 
+**使用说明**
+
 ```java
 
 public class Example2Activity extends AppCompatActivity {
@@ -83,6 +85,7 @@ public class Example2Activity extends AppCompatActivity {
         baseChatKeyboardUtil.checkSoftMode();
         binding = ActivitySecond2Binding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        //所有设置设置这个之后才起效，必须在onCreate中调用
         baseChatKeyboardUtil.attachLifecycle(this);
         //输入框
         baseChatKeyboardUtil.setInputEditText(binding.etContent);
