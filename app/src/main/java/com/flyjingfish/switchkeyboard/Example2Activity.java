@@ -2,6 +2,7 @@ package com.flyjingfish.switchkeyboard;
 
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -34,7 +35,7 @@ public class Example2Activity extends AppCompatActivity {
         baseChatKeyboardUtil.setToggleMenuViews(new MenuModeView(binding.tvMore, binding.llMenuBtn),
                 new MenuModeView(binding.tvFace, binding.llEmoji, binding.tvFaceBack,true),
                 new MenuModeView(binding.tvWord, binding.llWord, binding.tvWordBack,true));
-        baseChatKeyboardUtil.setOnKeyboardMenuListener(new BaseSwitchKeyboardUtil.OnKeyboardMenuListener() {
+        baseChatKeyboardUtil.setOnKeyboardMenuListener(new SwitchKeyboardUtil.OnKeyboardMenuListener() {
             @Override
             public void onScrollToBottom() {
                 scrollToBottom();
@@ -57,6 +58,11 @@ public class Example2Activity extends AppCompatActivity {
 
             @Override
             public void onCallHideKeyboard() {
+            }
+
+            @Override
+            public void onShowMenuLayout(View layoutView) {
+
             }
         });
         List<String> msgList = new ArrayList<>();

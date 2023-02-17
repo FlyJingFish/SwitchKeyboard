@@ -72,6 +72,11 @@ public class SwitchKeyboardUtil extends BaseSwitchKeyboardUtil {
                     onKeyboardMenuListener.onCallHideKeyboard();
                 }
             }
+
+            @Override
+            public void onShowMenuLayout(View layoutView) {
+
+            }
         });
         for (MenuModeView menuModeView : menuModeViews) {
             menuModeView.clickToggleView.setOnClickListener(v -> {
@@ -105,10 +110,16 @@ public class SwitchKeyboardUtil extends BaseSwitchKeyboardUtil {
             for (MenuModeView menuModeView : menuModeViews) {
                 menuModeView.toggleViewContainer.setVisibility(clickViewMenuMode == menuModeView?View.VISIBLE:View.GONE);
             }
+            if (onKeyboardMenuListener != null){
+                onKeyboardMenuListener.onShowMenuLayout(clickViewMenuMode.toggleViewContainer);
+            }
         }else if (menuMode != clickViewMenuMode){
             menuMode = clickViewMenuMode;
             for (MenuModeView menuModeView : menuModeViews) {
                 menuModeView.toggleViewContainer.setVisibility(clickViewMenuMode == menuModeView?View.VISIBLE:View.GONE);
+            }
+            if (onKeyboardMenuListener != null){
+                onKeyboardMenuListener.onShowMenuLayout(clickViewMenuMode.toggleViewContainer);
             }
         }else {
             toggleMoreView();
@@ -139,9 +150,11 @@ public class SwitchKeyboardUtil extends BaseSwitchKeyboardUtil {
         return false;
     }
 
-    @Override
-    public void setOnKeyboardMenuListener(OnKeyboardMenuListener onKeyboardMenuListener) {
+    public void setOnKeyboardMenuListener(SwitchKeyboardUtil.OnKeyboardMenuListener onKeyboardMenuListener) {
         this.onKeyboardMenuListener = onKeyboardMenuListener;
     }
 
+    public interface OnKeyboardMenuListener extends BaseSwitchKeyboardUtil.OnKeyboardMenuListener {
+        void onShowMenuLayout(View layoutView);
+    }
 }
