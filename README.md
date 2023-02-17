@@ -71,11 +71,10 @@
 
 **代码中使用方式如下：**
 
-1、假如输入框一栏 **有表情** 按钮时使用 **Example1SwitchKeyboardUtil** 详情可看[SecondActivity2](https://github.com/FlyJingFish/SwitchKeyboard/blob/master/app/src/main/java/com/flyjingfish/switchkeyboard/SecondActivity2.java)
+1、假如有按钮**在输入框一栏时** 详情可看[Example1Activity](https://github.com/FlyJingFish/SwitchKeyboard/blob/master/app/src/main/java/com/flyjingfish/switchkeyboard/Example1Activity.java)
 
-2、假如输入框一栏 **没有表情** 按钮时使用 **Example2SwitchKeyboardUtil** 详情可看[SecondActivity3](https://github.com/FlyJingFish/SwitchKeyboard/blob/master/app/src/main/java/com/flyjingfish/switchkeyboard/SecondActivity3.java)
+2、假如有按钮**不在在输入框一栏时** 详情可看[Example2Activity](https://github.com/FlyJingFish/SwitchKeyboard/blob/master/app/src/main/java/com/flyjingfish/switchkeyboard/Example2Activity.java)
 
-3、如需完全 **自定义** 切换逻辑可使用 BaseSwitchKeyboardUtil [SecondActivity](https://github.com/FlyJingFish/SwitchKeyboard/blob/master/app/src/main/java/com/flyjingfish/switchkeyboard/SecondActivity.java)
 
 
 ## 特别注意

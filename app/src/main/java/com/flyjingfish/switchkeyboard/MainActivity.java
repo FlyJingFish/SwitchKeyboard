@@ -15,9 +15,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        binding.example1.setOnClickListener(v -> startActivity(new Intent(this,SecondActivity.class)));
-        binding.example2.setOnClickListener(v -> startActivity(new Intent(this,SecondActivity2.class)));
-        binding.example3.setOnClickListener(v -> startActivity(new Intent(this,SecondActivity3.class)));
+        binding.example1.setOnClickListener(v -> startActivity(new Intent(this, Example1Activity.class)));
+        binding.example2.setOnClickListener(v -> startActivity(new Intent(this, Example2Activity.class)));
     }
 
     @Override

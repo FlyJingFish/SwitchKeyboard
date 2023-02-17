@@ -2,39 +2,38 @@ package com.flyjingfish.switchkeyboard;
 
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.flyjingfish.switchkeyboard.databinding.ActivitySecondBinding;
+import com.flyjingfish.switchkeyboard.databinding.ActivitySecond2Binding;
 import com.flyjingfish.switchkeyboardlib.BaseSwitchKeyboardUtil;
-import com.flyjingfish.switchkeyboardlib.Example1SwitchKeyboardUtil;
+import com.flyjingfish.switchkeyboardlib.SwitchKeyboardUtil;
+import com.flyjingfish.switchkeyboardlib.MenuModeView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SecondActivity2 extends AppCompatActivity {
-    private Example1SwitchKeyboardUtil baseChatKeyboardUtil;
-    private ActivitySecondBinding binding;
+public class Example2Activity extends AppCompatActivity {
+    private SwitchKeyboardUtil baseChatKeyboardUtil;
+    private ActivitySecond2Binding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        baseChatKeyboardUtil = new Example1SwitchKeyboardUtil(this,false);
+        baseChatKeyboardUtil = new SwitchKeyboardUtil(this, true);
         baseChatKeyboardUtil.checkSoftMode();
-        binding = ActivitySecondBinding.inflate(getLayoutInflater());
+        binding = ActivitySecond2Binding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         baseChatKeyboardUtil.attachLifecycle(this);
-        baseChatKeyboardUtil.setBaseViews(binding.etContent, binding.tvAudio, binding.tvAudioTouch, binding.llMenu);
-        baseChatKeyboardUtil.setMoreViews(binding.tvFace, binding.tvMore, binding.llMenuBtn, binding.llEmoji);
-        List<String> msgList = new ArrayList<>();
-        for (int i = 0; i < 60; i++) {
-            msgList.add("item="+i);
-        }
-        MsgAdapter msgAdapter = new MsgAdapter(msgList);
-        binding.rv.setAdapter(msgAdapter);
-        binding.rv.setLayoutManager(new LinearLayoutManager(this));
-
+        baseChatKeyboardUtil.setInputEditText(binding.etContent);
+        baseChatKeyboardUtil.setAudioBtn(binding.tvAudio);
+        baseChatKeyboardUtil.setAudioTouchVIew(binding.tvAudioTouch);
+        baseChatKeyboardUtil.setMenuViewContainer(binding.llMenu);
+        baseChatKeyboardUtil.setToggleMenuViews(new MenuModeView(binding.tvMore, binding.llMenuBtn),
+                new MenuModeView(binding.tvFace, binding.llEmoji, binding.tvFaceBack,true),
+                new MenuModeView(binding.tvWord, binding.llWord, binding.tvWordBack,true));
         baseChatKeyboardUtil.setOnKeyboardMenuListener(new BaseSwitchKeyboardUtil.OnKeyboardMenuListener() {
             @Override
             public void onScrollToBottom() {
@@ -58,14 +57,22 @@ public class SecondActivity2 extends AppCompatActivity {
 
             @Override
             public void onCallHideKeyboard() {
-
             }
         });
+        List<String> msgList = new ArrayList<>();
+        for (int i = 0; i < 60; i++) {
+            msgList.add("item=" + i);
+        }
+        MsgAdapter msgAdapter = new MsgAdapter(msgList);
+        binding.rv.setAdapter(msgAdapter);
+        binding.rv.setLayoutManager(new LinearLayoutManager(this));
+
     }
+
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK && baseChatKeyboardUtil.onKeyDown(keyCode, event)){
+        if (keyCode == KeyEvent.KEYCODE_BACK && baseChatKeyboardUtil.onKeyDown(keyCode, event)) {
             return true;
         }
         return super.onKeyDown(keyCode, event);

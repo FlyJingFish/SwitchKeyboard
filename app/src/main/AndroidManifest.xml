@@ -25,15 +25,11 @@
                 android:value="" />
         </activity>
         <activity
-            android:name="com.flyjingfish.switchkeyboard.SecondActivity"
+            android:name="com.flyjingfish.switchkeyboard.Example1Activity"
             android:exported="true">
         </activity>
         <activity
-            android:name="com.flyjingfish.switchkeyboard.SecondActivity2"
-            android:exported="true">
-        </activity>
-        <activity
-            android:name="com.flyjingfish.switchkeyboard.SecondActivity3"
+            android:name="com.flyjingfish.switchkeyboard.Example2Activity"
             android:exported="true">
         </activity>
     </application>

@@ -53,14 +53,32 @@ public class BaseSwitchKeyboardUtil {
     /**
      *
      * @param etContent 文本消息输入框（不可为空）
+     */
+    public void setInputEditText(@NonNull EditText etContent) {
+        this.etContent = etContent;
+    }
+
+    /**
+     *
      * @param audioBtn 语音消息按钮（可为空）
+     */
+    public void setAudioBtn(@Nullable View audioBtn) {
+        this.audioBtn = audioBtn;
+    }
+
+    /**
+     *
      * @param audioTouchVIew 语音消息按住说话按钮（可为空）
+     */
+    public void setAudioTouchVIew(@Nullable View audioTouchVIew) {
+        this.audioTouchVIew = audioTouchVIew;
+    }
+
+    /**
+     *
      * @param menuViewContainer 菜单总包裹布局（不可为空）
      */
-    public void setBaseViews(@NonNull EditText etContent, @Nullable View audioBtn,@Nullable View audioTouchVIew,@NonNull ViewGroup menuViewContainer) {
-        this.etContent = etContent;
-        this.audioBtn = audioBtn;
-        this.audioTouchVIew = audioTouchVIew;
+    public void setMenuViewContainer(@NonNull ViewGroup menuViewContainer) {
         this.menuViewContainer = menuViewContainer;
     }
 
