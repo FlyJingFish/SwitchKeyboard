@@ -21,10 +21,11 @@ public class Example1Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        baseSwitchKeyboardUtil = new SwitchKeyboardUtil(this,true);
+        baseSwitchKeyboardUtil = new SwitchKeyboardUtil(this);
         baseSwitchKeyboardUtil.checkSoftMode();
         binding = ActivitySecondBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        baseSwitchKeyboardUtil.setMenuViewHeightEqualKeyboard(true);
         baseSwitchKeyboardUtil.attachLifecycle(this);
         baseSwitchKeyboardUtil.setInputEditText(binding.etContent);
         baseSwitchKeyboardUtil.setAudioBtn(binding.tvAudio);

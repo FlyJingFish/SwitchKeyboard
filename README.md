@@ -85,6 +85,8 @@ public class Example2Activity extends AppCompatActivity {
         baseChatKeyboardUtil.checkSoftMode();
         binding = ActivitySecond2Binding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        //是否让菜单高度和键盘高度一样（首次可能会有误差）
+        baseChatKeyboardUtil.setMenuViewHeightEqualKeyboard(true);
         //所有设置设置这个之后才起效，必须在onCreate中调用
         baseChatKeyboardUtil.attachLifecycle(this);
         //输入框

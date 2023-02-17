@@ -22,10 +22,6 @@ public class SwitchKeyboardUtil extends BaseSwitchKeyboardUtil {
         super(activity);
     }
 
-    public SwitchKeyboardUtil(Activity activity, boolean menuViewHeightEqualKeyboard) {
-        super(activity, menuViewHeightEqualKeyboard);
-    }
-
     /**
      *
      * @param menuModeView 展开的点击按钮和对应的隐藏布局

@@ -22,10 +22,11 @@ public class Example2Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        baseChatKeyboardUtil = new SwitchKeyboardUtil(this, true);
+        baseChatKeyboardUtil = new SwitchKeyboardUtil(this);
         baseChatKeyboardUtil.checkSoftMode();
         binding = ActivitySecond2Binding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        baseChatKeyboardUtil.setMenuViewHeightEqualKeyboard(true);
         baseChatKeyboardUtil.attachLifecycle(this);
         baseChatKeyboardUtil.setInputEditText(binding.etContent);
         baseChatKeyboardUtil.setAudioBtn(binding.tvAudio);

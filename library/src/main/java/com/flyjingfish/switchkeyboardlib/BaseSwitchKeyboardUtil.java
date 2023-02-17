@@ -36,17 +36,16 @@ public class BaseSwitchKeyboardUtil {
     protected ViewGroup menuViewContainer;
     protected boolean menuViewHeightEqualKeyboard;
     protected boolean keyboardIsShow;
+
     public BaseSwitchKeyboardUtil(Activity activity) {
-        this(activity,false);
+        this.activity = activity;
     }
 
     /**
      *
-     * @param activity
      * @param menuViewHeightEqualKeyboard 是否让菜单高度和键盘高度一样（首次可能会有误差）
      */
-    public BaseSwitchKeyboardUtil(Activity activity, boolean menuViewHeightEqualKeyboard) {
-        this.activity = activity;
+    public void setMenuViewHeightEqualKeyboard(boolean menuViewHeightEqualKeyboard) {
         this.menuViewHeightEqualKeyboard = menuViewHeightEqualKeyboard;
     }
 
