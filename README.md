@@ -149,6 +149,7 @@ public class Example2Activity extends AppCompatActivity {
             @Override
             public void onKeyboardShow(int keyboardHeight) {
                 //当键盘现实后回调
+                binding.tvAudio.setImageResource(R.drawable.ic_audio);
             }
 
             @Override
@@ -159,6 +160,12 @@ public class Example2Activity extends AppCompatActivity {
             @Override
             public void onCallHideKeyboard() {
                 //当调用隐藏键盘前回调
+            }
+
+            @Override
+            public void onShowMenuLayout(View layoutView) {
+                //当显示某个菜单布局(即 MenuModeView.toggleViewContainer )时回调 
+                binding.tvAudio.setImageResource(layoutView == binding.tvAudioTouch?R.drawable.ic_keyboard:R.drawable.ic_audio);
             }
         });
     }
