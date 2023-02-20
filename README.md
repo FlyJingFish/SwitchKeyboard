@@ -12,7 +12,7 @@
 
 <img src="https://github.com/FlyJingFish/SwitchKeyboard/blob/master/screenshot/download_qrcode.png" alt="show" width="200px" height="200px" />
 
-<img src="https://github.com/FlyJingFish/SwitchKeyboard/blob/master/screenshot/Screenrecording_20230213_185236.gif" width="320px" height="640px" alt="show" />
+<img src="https://github.com/FlyJingFish/SwitchKeyboard/blob/master/screenshot/Screenrecording_20230220_143534.gif" width="320px" height="640px" alt="show" />
 
 
 ## 第一步，根目录build.gradle

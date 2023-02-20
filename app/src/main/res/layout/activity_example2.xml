@@ -63,7 +63,7 @@
                     android:minHeight="30dp"
                     android:text=""
                     android:layout_marginStart="10dp"
-                    android:layout_toStartOf="@+id/iv_face"
+                    android:layout_toStartOf="@+id/tv_more"
                     android:layout_toEndOf="@+id/tv_audio"
                     android:background="@drawable/bg_edit_send_person_info"
                     android:padding="4dp"
@@ -79,20 +79,12 @@
                     android:gravity="center"
                     android:visibility="gone"
                     android:layout_marginStart="10dp"
-                    android:layout_toStartOf="@+id/iv_face"
+                    android:layout_toStartOf="@+id/tv_more"
                     android:layout_toEndOf="@+id/tv_audio"
                     android:background="@drawable/bg_edit_send_person_info"
                     android:padding="4dp"
                     android:textSize="16sp" />
-                <ImageView
-                    android:id="@+id/iv_face"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:gravity="center"
-                    android:layout_marginStart="10dp"
-                    android:layout_toStartOf="@+id/tv_more"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/ic_face"/>
+
                 <ImageView
                     android:id="@+id/tv_more"
                     android:layout_width="30dp"
@@ -126,7 +118,8 @@
                 android:paddingHorizontal="13dp"
                 android:background="@color/white"
                 android:visibility="gone"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                tools:visibility="gone">
                 <LinearLayout
                     android:id="@+id/ll_menu_btn"
                     android:layout_width="match_parent"
@@ -162,12 +155,13 @@
                             android:background="@drawable/bg_send_person_info"
                             android:textSize="13sp" />
                         <TextView
+                            android:id="@+id/tv_gift"
                             android:layout_width="80dp"
                             android:layout_height="30dp"
                             android:gravity="center"
                             android:paddingHorizontal="16dp"
                             android:layout_marginStart="10dp"
-                            android:text="Menu2"
+                            android:text="🎁"
                             android:textColor="@color/white"
                             android:background="@drawable/bg_send_person_info"
                             android:textSize="13sp" />
@@ -184,6 +178,16 @@
                             android:layout_height="30dp"
                             android:gravity="center"
                             android:paddingHorizontal="16dp"
+                            android:text="Menu3"
+                            android:textColor="@color/white"
+                            android:background="@drawable/bg_send_person_info"
+                            android:textSize="13sp" />
+                        <TextView
+                            android:layout_width="80dp"
+                            android:layout_height="30dp"
+                            android:gravity="center"
+                            android:paddingHorizontal="16dp"
+                            android:layout_marginStart="10dp"
                             android:text="Menu4"
                             android:textColor="@color/white"
                             android:background="@drawable/bg_send_person_info"
@@ -198,16 +202,6 @@
                             android:textColor="@color/white"
                             android:background="@drawable/bg_send_person_info"
                             android:textSize="13sp" />
-                        <TextView
-                            android:layout_width="80dp"
-                            android:layout_height="30dp"
-                            android:gravity="center"
-                            android:paddingHorizontal="16dp"
-                            android:layout_marginStart="10dp"
-                            android:text="Menu6"
-                            android:textColor="@color/white"
-                            android:background="@drawable/bg_send_person_info"
-                            android:textSize="13sp" />
                     </LinearLayout>
 
 
@@ -217,14 +211,14 @@
                     android:id="@+id/ll_emoji"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:visibility="gone">
-                    <TextView
+                    android:visibility="gone"
+                    tools:visibility="visible">
+                    <ImageView
                         android:id="@+id/tv_face_back"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:textColor="@color/black"
-                        android:textSize="40sp"
-                        android:text="⬅️"/>
+                        android:padding="10dp"
+                        android:src="@drawable/ic_back"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -233,32 +227,18 @@
                         android:layout_centerInParent="true"
                         android:text="Emoji表情"/>
                 </RelativeLayout>
-                <RelativeLayout
-                    android:id="@+id/ll_face"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:visibility="gone">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/black"
-                        android:textSize="40sp"
-                        android:layout_centerInParent="true"
-                        android:text="表情集"/>
-                </RelativeLayout>
                 <LinearLayout
                     android:id="@+id/ll_word"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:visibility="gone">
-                    <TextView
+                    <ImageView
                         android:id="@+id/tv_word_back"
-                        android:layout_width="match_parent"
+                        android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:textColor="@color/black"
-                        android:textSize="40sp"
-                        android:text="⬅️"/>
+                        android:padding="10dp"
+                        android:src="@drawable/ic_back"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -283,6 +263,25 @@
                         android:layout_marginTop="10dp"
                         android:text="你好,我在开会稍等一下"/>
                 </LinearLayout>
+                <RelativeLayout
+                    android:id="@+id/ll_gift"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone">
+                    <ImageView
+                        android:id="@+id/tv_gift_back"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:padding="10dp"
+                        android:src="@drawable/ic_back"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:textSize="40sp"
+                        android:layout_centerInParent="true"
+                        android:text="礼物集"/>
+                </RelativeLayout>
             </RelativeLayout>
 
         </RelativeLayout>
