@@ -20,7 +20,6 @@ public class SwitchKeyboardUtil extends BaseSwitchKeyboardUtil {
     private final List<MenuModeView> menuModeViews = new ArrayList<>();
     private View lastVisibleView;
     private MenuModeView lastMenuModeView;
-    private int lastViewHeight;
 
     public SwitchKeyboardUtil(Activity activity) {
         super(activity);
@@ -186,9 +185,6 @@ public class SwitchKeyboardUtil extends BaseSwitchKeyboardUtil {
                 lastVisibleView = menuModeView.toggleViewContainer;
                 lastMenuModeView = menuModeView;
             }
-        }
-        if (lastVisibleView != null){
-            lastViewHeight = lastVisibleView.getHeight();
         }
     }
 
