@@ -53,6 +53,9 @@ public class SwitchKeyboardUtil extends BaseSwitchKeyboardUtil {
 
             @Override
             public void onKeyboardShow(int keyboardHeight) {
+                if (menuMode == IDLE){
+                    isShowMenu  = false;
+                }
                 if (onKeyboardMenuListener != null) {
                     onKeyboardMenuListener.onKeyboardShow(keyboardHeight);
                 }
