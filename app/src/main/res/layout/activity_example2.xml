@@ -49,17 +49,13 @@
                 android:focusableInTouchMode="true"
                 android:background="@drawable/bg_edit_person_info"
                 android:orientation="horizontal">
-                <TextView
+                <ImageView
                     android:id="@+id/tv_audio"
-                    android:layout_width="wrap_content"
+                    android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:gravity="center"
-                    android:paddingHorizontal="5dp"
-                    android:text="🎙️"
-                    android:textColor="@color/white"
-                    android:layout_centerVertical="true"
-                    android:background="@drawable/bg_send_person_info"
-                    android:textSize="16sp" />
+                    android:src="@drawable/ic_audio"
+                    android:layout_centerVertical="true" />
                 <EditText
                     android:id="@+id/et_content"
                     android:layout_width="match_parent"
@@ -67,10 +63,10 @@
                     android:minHeight="30dp"
                     android:text=""
                     android:layout_marginStart="10dp"
-                    android:layout_toStartOf="@+id/tv_more"
+                    android:layout_toStartOf="@+id/iv_face"
                     android:layout_toEndOf="@+id/tv_audio"
                     android:background="@drawable/bg_edit_send_person_info"
-                    android:padding="10dp"
+                    android:padding="4dp"
                     android:textSize="13sp" />
                 <TextView
                     android:id="@+id/tv_audio_touch"
@@ -78,27 +74,34 @@
                     android:layout_height="wrap_content"
                     android:minHeight="30dp"
                     android:text="按住说话"
+                    android:textColor="#2c2c2c"
+                    android:textStyle="bold"
                     android:gravity="center"
                     android:visibility="gone"
                     android:layout_marginStart="10dp"
-                    android:layout_toStartOf="@+id/tv_more"
+                    android:layout_toStartOf="@+id/iv_face"
                     android:layout_toEndOf="@+id/tv_audio"
                     android:background="@drawable/bg_edit_send_person_info"
-                    android:padding="10dp"
-                    android:textSize="13sp" />
-                <TextView
-                    android:id="@+id/tv_more"
-                    android:layout_width="wrap_content"
+                    android:padding="4dp"
+                    android:textSize="16sp" />
+                <ImageView
+                    android:id="@+id/iv_face"
+                    android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:gravity="center"
-                    android:paddingHorizontal="5dp"
                     android:layout_marginStart="10dp"
-                    android:text="➕"
-                    android:layout_toStartOf="@+id/tv_send"
-                    android:textColor="@color/white"
+                    android:layout_toStartOf="@+id/tv_more"
                     android:layout_centerVertical="true"
-                    android:background="@drawable/bg_send_person_info"
-                    android:textSize="16sp" />
+                    android:src="@drawable/ic_face"/>
+                <ImageView
+                    android:id="@+id/tv_more"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:src="@drawable/ic_more"
+                    android:layout_toStartOf="@+id/tv_send"
+                    android:layout_centerVertical="true" />
                 <TextView
                     android:id="@+id/tv_send"
                     android:layout_width="wrap_content"
@@ -107,10 +110,11 @@
                     android:layout_alignParentEnd="true"
                     android:paddingHorizontal="16dp"
                     android:layout_marginStart="10dp"
-                    android:text="Send"
+                    android:text="发送"
                     android:layout_centerVertical="true"
-                    android:textColor="@color/white"
-                    android:background="@drawable/bg_send_person_info"
+                    android:textColor="#2c2c2c"
+                    android:textStyle="bold"
+                    android:background="@drawable/bg_send"
                     android:textSize="13sp" />
             </RelativeLayout>
             <RelativeLayout
@@ -227,7 +231,20 @@
                         android:textColor="@color/black"
                         android:textSize="40sp"
                         android:layout_centerInParent="true"
-                        android:text="大表情"/>
+                        android:text="Emoji表情"/>
+                </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/ll_face"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:textSize="40sp"
+                        android:layout_centerInParent="true"
+                        android:text="表情集"/>
                 </RelativeLayout>
                 <LinearLayout
                     android:id="@+id/ll_word"

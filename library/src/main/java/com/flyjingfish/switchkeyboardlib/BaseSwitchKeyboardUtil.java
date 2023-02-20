@@ -131,15 +131,24 @@ public class BaseSwitchKeyboardUtil {
                     if (audioTouchVIew != null){
                         audioTouchVIew.setVisibility(View.VISIBLE);
                     }
+                    if (onKeyboardMenuListener != null){
+                        onKeyboardMenuListener.onShowMenuLayout(audioTouchVIew);
+                    }
                 }else if (menuViewContainer.getVisibility() == View.VISIBLE){
                     menuViewContainer.setVisibility(View.GONE);
                     etContent.setVisibility(View.GONE);
                     if (audioTouchVIew != null){
                         audioTouchVIew.setVisibility(View.VISIBLE);
                     }
+                    if (onKeyboardMenuListener != null){
+                        onKeyboardMenuListener.onShowMenuLayout(audioTouchVIew);
+                    }
                 }else if (audioTouchVIew != null && audioTouchVIew.getVisibility() == View.GONE){
                     etContent.setVisibility(View.GONE);
                     audioTouchVIew.setVisibility(View.VISIBLE);
+                    if (onKeyboardMenuListener != null){
+                        onKeyboardMenuListener.onShowMenuLayout(audioTouchVIew);
+                    }
                 }else {
                     etContent.setVisibility(View.VISIBLE);
                     if (audioTouchVIew != null){
@@ -228,7 +237,7 @@ public class BaseSwitchKeyboardUtil {
     /**
      * 切换键盘和更多菜单
      */
-    public void toggleMoreView(){
+    public boolean toggleMoreView(){
         if (!isShowMenu){
 
             isShowMenu = true;
@@ -247,7 +256,6 @@ public class BaseSwitchKeyboardUtil {
             }
 
             hideKeyboard();
-
         }else {
             isShowMenu = false;
             etContent.setVisibility(View.VISIBLE);
@@ -259,7 +267,7 @@ public class BaseSwitchKeyboardUtil {
         if (onKeyboardMenuListener != null){
             onKeyboardMenuListener.onScrollToBottom();
         }
-
+        return isShowMenu;
     }
 
     private OnKeyboardMenuListener onKeyboardMenuListener;
@@ -270,6 +278,7 @@ public class BaseSwitchKeyboardUtil {
         void onKeyboardShow(int keyboardHeight);
         void onCallShowKeyboard();
         void onCallHideKeyboard();
+        void onShowMenuLayout(View layoutView);
     }
 
     /**

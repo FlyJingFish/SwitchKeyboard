@@ -34,7 +34,9 @@ public class Example2Activity extends AppCompatActivity {
         baseChatKeyboardUtil.setMenuViewContainer(binding.llMenu);
         baseChatKeyboardUtil.setToggleMenuViews(new MenuModeView(binding.tvMore, binding.llMenuBtn),
                 new MenuModeView(binding.tvFace, binding.llEmoji, binding.tvFaceBack,true),
-                new MenuModeView(binding.tvWord, binding.llWord, binding.tvWordBack,true));
+                new MenuModeView(binding.tvWord, binding.llWord, binding.tvWordBack,true),
+                new MenuModeView(binding.ivFace, binding.llFace)
+        );
         baseChatKeyboardUtil.setOnKeyboardMenuListener(new SwitchKeyboardUtil.OnKeyboardMenuListener() {
             @Override
             public void onScrollToBottom() {
@@ -48,7 +50,8 @@ public class Example2Activity extends AppCompatActivity {
 
             @Override
             public void onKeyboardShow(int keyboardHeight) {
-
+                binding.tvAudio.setImageResource(R.drawable.ic_audio);
+                binding.ivFace.setImageResource(R.drawable.ic_face);
             }
 
             @Override
@@ -62,7 +65,8 @@ public class Example2Activity extends AppCompatActivity {
 
             @Override
             public void onShowMenuLayout(View layoutView) {
-
+                binding.tvAudio.setImageResource(layoutView == binding.tvAudioTouch?R.drawable.ic_keyboard:R.drawable.ic_audio);
+                binding.ivFace.setImageResource(layoutView == binding.llFace?R.drawable.ic_keyboard:R.drawable.ic_face);
             }
         });
         List<String> msgList = new ArrayList<>();
