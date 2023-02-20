@@ -186,6 +186,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:visibility="visible"
+                    android:paddingVertical="60dp"
                     android:gravity="center"
                     android:orientation="vertical">
                     <LinearLayout
@@ -267,7 +268,7 @@
                 <RelativeLayout
                     android:id="@+id/ll_emoji"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="180dp"
                     android:visibility="gone">
                     <TextView
                         android:layout_width="wrap_content"
@@ -281,7 +282,8 @@
                 <LinearLayout
                     android:id="@+id/ll_word"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="30dp"
                     android:gravity="center"
                     android:orientation="vertical"
                     android:visibility="gone">
@@ -309,7 +311,7 @@
                 <RelativeLayout
                     android:id="@+id/ll_gift"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="400dp"
                     android:visibility="gone">
                     <TextView
                         android:layout_width="wrap_content"

@@ -27,7 +27,8 @@ public class Example1Activity extends AppCompatActivity {
         switchKeyboardUtil.checkSoftMode();
         binding = ActivityExample1Binding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        switchKeyboardUtil.setMenuViewHeightEqualKeyboard(true);
+        switchKeyboardUtil.setMenuViewHeightEqualKeyboard(false);
+        switchKeyboardUtil.setUseSwitchAnim(true);
         switchKeyboardUtil.attachLifecycle(this);
         switchKeyboardUtil.setInputEditText(binding.etContent);
         switchKeyboardUtil.setAudioBtn(binding.tvAudio);

@@ -1,8 +1,10 @@
 package com.flyjingfish.switchkeyboardlib;
 
+import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewTreeObserver;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LifecycleOwner;
@@ -17,6 +19,8 @@ public class SwitchKeyboardUtil extends BaseSwitchKeyboardUtil {
     private MenuModeView menuMode = IDLE;
     private final List<MenuModeView> menuModeViews = new ArrayList<>();
     private View lastVisibleView;
+    private MenuModeView lastMenuModeView;
+    private int lastViewHeight;
 
     public SwitchKeyboardUtil(Activity activity) {
         super(activity);
@@ -96,7 +100,10 @@ public class SwitchKeyboardUtil extends BaseSwitchKeyboardUtil {
                     for (MenuModeView menuModeView2 : menuModeViews) {
                         menuModeView2.toggleViewContainer.setVisibility(View.GONE);
                     }
-                    lastVisibleView.setVisibility(View.VISIBLE);
+                    if (lastVisibleView != null){
+                        lastVisibleView.setVisibility(View.VISIBLE);
+                    }
+                    setSwitchAnim(lastMenuModeView);
                 });
             }
         }
@@ -115,6 +122,7 @@ public class SwitchKeyboardUtil extends BaseSwitchKeyboardUtil {
             for (MenuModeView menuModeView : menuModeViews) {
                 menuModeView.toggleViewContainer.setVisibility(clickViewMenuMode == menuModeView?View.VISIBLE:View.GONE);
             }
+            setSwitchAnim(clickViewMenuMode);
             if (onKeyboardMenuListener != null){
                 onKeyboardMenuListener.onShowMenuLayout(clickViewMenuMode.toggleViewContainer);
             }
@@ -123,6 +131,7 @@ public class SwitchKeyboardUtil extends BaseSwitchKeyboardUtil {
             for (MenuModeView menuModeView : menuModeViews) {
                 menuModeView.toggleViewContainer.setVisibility(clickViewMenuMode == menuModeView?View.VISIBLE:View.GONE);
             }
+            setSwitchAnim(clickViewMenuMode);
             if (onKeyboardMenuListener != null){
                 onKeyboardMenuListener.onShowMenuLayout(clickViewMenuMode.toggleViewContainer);
             }
@@ -132,6 +141,7 @@ public class SwitchKeyboardUtil extends BaseSwitchKeyboardUtil {
                 for (MenuModeView menuModeView : menuModeViews) {
                     menuModeView.toggleViewContainer.setVisibility(clickViewMenuMode == menuModeView?View.VISIBLE:View.GONE);
                 }
+                setSwitchAnim(clickViewMenuMode);
                 if (onKeyboardMenuListener != null){
                     onKeyboardMenuListener.onShowMenuLayout(clickViewMenuMode.toggleViewContainer);
                 }
@@ -144,13 +154,41 @@ public class SwitchKeyboardUtil extends BaseSwitchKeyboardUtil {
         for (MenuModeView menuModeView : menuModeViews) {
             menuModeView.toggleViewContainer.setVisibility(clickViewMenuMode == menuModeView?View.VISIBLE:View.GONE);
         }
+        setSwitchAnim(clickViewMenuMode);
     }
+
+    private void setSwitchAnim(MenuModeView clickViewMenuMode){
+        if (lastVisibleView == null || !useSwitchAnim){
+            return;
+        }
+        clickViewMenuMode.toggleViewContainer.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                stopSwitchAnim();
+                clickViewMenuMode.toggleViewContainer.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                ViewHeight viewHeight = new ViewHeight(menuViewContainer);
+                clickViewMenuMode.toggleViewContainer.measure(0,0);
+                int startHeight = menuViewContainer.getHeight();
+                int endHeight = clickViewMenuMode.toggleViewContainer.getMeasuredHeight();
+                int distance = Math.abs(startHeight - endHeight);
+                switchAnim = ObjectAnimator.ofInt(viewHeight,"viewHeight",startHeight,endHeight);
+                switchAnim.setDuration(distance/SWITCH_ANIM_SPEED);
+                switchAnim.start();
+            }
+        });
+    }
+
+
 
     private void recordLastVisibleView(){
         for (MenuModeView menuModeView : menuModeViews) {
             if (menuModeView.toggleViewContainer.getVisibility() == View.VISIBLE){
                 lastVisibleView = menuModeView.toggleViewContainer;
+                lastMenuModeView = menuModeView;
             }
+        }
+        if (lastVisibleView != null){
+            lastViewHeight = lastVisibleView.getHeight();
         }
     }
 

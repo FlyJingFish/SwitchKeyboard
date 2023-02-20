@@ -210,7 +210,7 @@
                 <RelativeLayout
                     android:id="@+id/ll_emoji"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="200dp"
                     android:visibility="gone"
                     tools:visibility="visible">
                     <ImageView
@@ -230,7 +230,7 @@
                 <LinearLayout
                     android:id="@+id/ll_word"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="200dp"
                     android:orientation="vertical"
                     android:visibility="gone">
                     <ImageView
@@ -266,7 +266,7 @@
                 <RelativeLayout
                     android:id="@+id/ll_gift"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="200dp"
                     android:visibility="gone">
                     <ImageView
                         android:id="@+id/tv_gift_back"

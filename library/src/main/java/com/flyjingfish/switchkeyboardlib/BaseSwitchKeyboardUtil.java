@@ -2,6 +2,7 @@ package com.flyjingfish.switchkeyboardlib;
 
 import static android.util.TypedValue.COMPLEX_UNIT_DIP;
 
+import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -35,7 +36,10 @@ public class BaseSwitchKeyboardUtil {
     protected Activity activity;
     protected ViewGroup menuViewContainer;
     protected boolean menuViewHeightEqualKeyboard;
+    protected boolean useSwitchAnim;
     protected boolean keyboardIsShow;
+    protected int keyboardHeight;
+    protected static final int SWITCH_ANIM_SPEED = 2;
 
     public BaseSwitchKeyboardUtil(Activity activity) {
         this.activity = activity;
@@ -162,8 +166,9 @@ public class BaseSwitchKeyboardUtil {
     }
 
     protected void onDestroy(@NonNull LifecycleOwner owner){
-        handler.removeCallbacksAndMessages(null);
         keyboardUtils.onDestroy();
+        handler.removeCallbacksAndMessages(null);
+        stopSwitchAnim();
     }
 
 
@@ -210,14 +215,27 @@ public class BaseSwitchKeyboardUtil {
         return false;
     }
 
+    protected ObjectAnimator switchAnim;
     private final SystemKeyboardUtils.OnKeyBoardListener onKeyBoardListener = new SystemKeyboardUtils.OnKeyBoardListener() {
         @Override
         public void onShow(int height) {
-            ViewGroup.LayoutParams layoutParams = menuViewContainer.getLayoutParams();
-            layoutParams.height = height;
-            menuViewContainer.setLayoutParams(layoutParams);
+            int startHeight = menuViewContainer.getHeight();
+            if (menuViewHeightEqualKeyboard || startHeight <= height || !useSwitchAnim){
+                ViewGroup.LayoutParams layoutParams = menuViewContainer.getLayoutParams();
+                layoutParams.height = height;
+                menuViewContainer.setLayoutParams(layoutParams);
+            }else {
+                stopSwitchAnim();
+                ViewHeight viewHeight = new ViewHeight(menuViewContainer);
+                int distance = Math.abs(startHeight - height);
+                switchAnim = ObjectAnimator.ofInt(viewHeight,"viewHeight",startHeight,height);
+                switchAnim.setDuration(distance/SWITCH_ANIM_SPEED);
+                switchAnim.start();
+            }
+
             menuViewContainer.setVisibility(View.INVISIBLE);
             saveKeyboardHeight(height);
+            keyboardHeight = height;
             if (onKeyboardMenuListener != null){
                 onKeyboardMenuListener.onKeyboardShow(height);
                 onKeyboardMenuListener.onScrollToBottom();
@@ -234,6 +252,25 @@ public class BaseSwitchKeyboardUtil {
         }
     };
 
+    protected void stopSwitchAnim(){
+        if (switchAnim != null){
+            switchAnim.cancel();
+        }
+    }
+
+    public static class ViewHeight{
+        private final View view;
+
+        public ViewHeight(View view) {
+            this.view = view;
+        }
+
+        public void setViewHeight(int height){
+            ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
+            layoutParams.height = height;
+            view.setLayoutParams(layoutParams);
+        }
+    }
     /**
      * 切换键盘和更多菜单
      */
@@ -247,7 +284,7 @@ public class BaseSwitchKeyboardUtil {
                 audioTouchVIew.setVisibility(View.GONE);
             }
             etContent.setVisibility(View.VISIBLE);
-            if (!menuViewHeightEqualKeyboard){
+            if (!menuViewHeightEqualKeyboard && !useSwitchAnim){
                 handler.postDelayed(() -> {
                     ViewGroup.LayoutParams layoutParams = menuViewContainer.getLayoutParams();
                     layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
@@ -314,5 +351,13 @@ public class BaseSwitchKeyboardUtil {
             }
             window.setSoftInputMode(newSoftMode|WindowManager.LayoutParams.SOFT_INPUT_ADJUST_UNSPECIFIED);
         }
+    }
+
+    public boolean isUseSwitchAnim() {
+        return useSwitchAnim;
+    }
+
+    public void setUseSwitchAnim(boolean useSwitchAnim) {
+        this.useSwitchAnim = useSwitchAnim;
     }
 }
