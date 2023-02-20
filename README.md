@@ -29,7 +29,7 @@
 
 ```gradle
     dependencies {
-        implementation 'com.github.FlyJingFish:SwitchKeyboard:1.1.1'
+        implementation 'com.github.FlyJingFish:SwitchKeyboard:1.1.2'
     }
 ```
 ## 第三步，使用说明
@@ -106,35 +106,35 @@
 ```java
 
 public class Example2Activity extends AppCompatActivity {
-    private SwitchKeyboardUtil baseChatKeyboardUtil;
+    private SwitchKeyboardUtil switchKeyboardUtil;
     private ActivitySecond2Binding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        baseChatKeyboardUtil = new SwitchKeyboardUtil(this, true);
+        switchKeyboardUtil = new SwitchKeyboardUtil(this, true);
         //checkSoftMode 必须在 setContentView 之前调用
-        baseChatKeyboardUtil.checkSoftMode();
+        switchKeyboardUtil.checkSoftMode();
         binding = ActivitySecond2Binding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         //是否让菜单高度和键盘高度一样（首次可能会有误差）
-        baseChatKeyboardUtil.setMenuViewHeightEqualKeyboard(true);
+        switchKeyboardUtil.setMenuViewHeightEqualKeyboard(true);
         //所有设置设置这个之后才起效，必须在onCreate中调用
-        baseChatKeyboardUtil.attachLifecycle(this);
+        switchKeyboardUtil.attachLifecycle(this);
         //输入框
-        baseChatKeyboardUtil.setInputEditText(binding.etContent);
+        switchKeyboardUtil.setInputEditText(binding.etContent);
         //切换语音的按钮
-        baseChatKeyboardUtil.setAudioBtn(binding.tvAudio);
+        switchKeyboardUtil.setAudioBtn(binding.tvAudio);
         //语音录制按钮
-        baseChatKeyboardUtil.setAudioTouchVIew(binding.tvAudioTouch);
+        switchKeyboardUtil.setAudioTouchVIew(binding.tvAudioTouch);
         //存放所有菜单的布局
-        baseChatKeyboardUtil.setMenuViewContainer(binding.llMenu);
+        switchKeyboardUtil.setMenuViewContainer(binding.llMenu);
         //设置切换菜单的切换按钮和菜单布局
-        baseChatKeyboardUtil.setToggleMenuViews(new MenuModeView(binding.tvMore, binding.llMenuBtn),
+        switchKeyboardUtil.setToggleMenuViews(new MenuModeView(binding.tvMore, binding.llMenuBtn),
                 new MenuModeView(binding.tvFace, binding.llEmoji, binding.tvFaceBack,true),
                 new MenuModeView(binding.tvWord, binding.llWord, binding.tvWordBack,true));
         //设置监听
-        baseChatKeyboardUtil.setOnKeyboardMenuListener(new BaseSwitchKeyboardUtil.OnKeyboardMenuListener() {
+        switchKeyboardUtil.setOnKeyboardMenuListener(new BaseSwitchKeyboardUtil.OnKeyboardMenuListener() {
             @Override
             public void onScrollToBottom() {
                 //如果你需要让聊天内容在打开菜单或键盘时滑动到底部，则在此写代码
@@ -167,7 +167,7 @@ public class Example2Activity extends AppCompatActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         //此处是用于点击手机返回按钮时关闭菜单
-        if (keyCode == KeyEvent.KEYCODE_BACK && baseChatKeyboardUtil.onKeyDown(keyCode, event)) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && switchKeyboardUtil.onKeyDown(keyCode, event)) {
             return true;
         }
         return super.onKeyDown(keyCode, event);
