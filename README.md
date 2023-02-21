@@ -174,6 +174,7 @@ public class Example2Activity extends AppCompatActivity {
 
             @Override
             public void onHideMenuViewContainer() {
+                //当收起菜单时回调这个方法
                 binding.tvAudio.setImageResource(R.drawable.ic_audio);
                 binding.ivFace.setImageResource(R.drawable.ic_face);
             }
