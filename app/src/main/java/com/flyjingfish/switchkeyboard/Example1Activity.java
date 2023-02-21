@@ -102,6 +102,20 @@ public class Example1Activity extends AppCompatActivity {
         MsgAdapter msgAdapter = new MsgAdapter(msgList);
         binding.rv.setAdapter(msgAdapter);
         binding.rv.setLayoutManager(new LinearLayoutManager(this));
+
+        binding.rv.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                scrollToBottom();
+            }
+        });
+
+        binding.rv.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                scrollToBottom();
+            }
+        },200);
     }
 
 

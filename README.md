@@ -12,7 +12,7 @@
 
 <img src="https://github.com/FlyJingFish/SwitchKeyboard/blob/master/screenshot/download_qrcode.png" alt="show" width="200px" height="200px" />
 
-<img src="https://github.com/FlyJingFish/SwitchKeyboard/blob/master/screenshot/Screenrecording_20230221_172033.gif" width="320px" height="640px" alt="show" />
+<img src="https://github.com/FlyJingFish/SwitchKeyboard/blob/master/screenshot/Screenrecording_20230221_192034.gif" width="320px" height="640px" alt="show" />
 
 
 ## 第一步，根目录build.gradle
@@ -195,6 +195,13 @@ public class Example2Activity extends AppCompatActivity {
                     switchKeyboardUtil.hideMenuAndKeyboard();
                 }
                 return false;
+            }
+        });
+        //这个是保持消息平滑移动的关键
+        recyclerView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                scrollToBottom();
             }
         });
     }

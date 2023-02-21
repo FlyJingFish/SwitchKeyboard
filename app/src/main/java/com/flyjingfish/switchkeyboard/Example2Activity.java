@@ -10,19 +10,20 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.flyjingfish.switchkeyboard.databinding.ActivityExample2Binding;
 import com.flyjingfish.switchkeyboardlib.BaseSwitchKeyboardUtil;
+import com.flyjingfish.switchkeyboardlib.MenuModeView;
 import com.flyjingfish.switchkeyboardlib.SwitchKeyboardUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Example2Activity extends AppCompatActivity {
-    private BaseSwitchKeyboardUtil switchKeyboardUtil;
+    private SwitchKeyboardUtil switchKeyboardUtil;
     private ActivityExample2Binding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        switchKeyboardUtil = new BaseSwitchKeyboardUtil(this);
+        switchKeyboardUtil = new SwitchKeyboardUtil(this);
         switchKeyboardUtil.checkSoftMode();
         binding = ActivityExample2Binding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -32,11 +33,11 @@ public class Example2Activity extends AppCompatActivity {
         switchKeyboardUtil.setAudioBtn(binding.tvAudio);
         switchKeyboardUtil.setAudioTouchVIew(binding.tvAudioTouch);
         switchKeyboardUtil.setMenuViewContainer(binding.llMenu);
-//        switchKeyboardUtil.setToggleMenuViews(new MenuModeView(binding.tvMore, binding.llMenuBtn),
-//                new MenuModeView(binding.tvFace, binding.llEmoji, binding.tvFaceBack,true),
-//                new MenuModeView(binding.tvWord, binding.llWord, binding.tvWordBack,true),
-//                new MenuModeView(binding.tvGift, binding.llGift, binding.tvGiftBack,true)
-//        );
+        switchKeyboardUtil.setToggleMenuViews(new MenuModeView(binding.tvMore, binding.llMenuBtn),
+                new MenuModeView(binding.tvFace, binding.llEmoji, binding.tvFaceBack,true),
+                new MenuModeView(binding.tvWord, binding.llWord, binding.tvWordBack,true),
+                new MenuModeView(binding.tvGift, binding.llGift, binding.tvGiftBack,true)
+        );
         switchKeyboardUtil.setOnKeyboardMenuListener(new SwitchKeyboardUtil.OnKeyboardMenuListener() {
             @Override
             public void onScrollToBottom() {
@@ -91,6 +92,20 @@ public class Example2Activity extends AppCompatActivity {
         binding.rv.setAdapter(msgAdapter);
         binding.rv.setLayoutManager(new LinearLayoutManager(this));
 
+        binding.rv.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                scrollToBottom();
+
+            }
+        });
+
+        binding.rv.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                scrollToBottom();
+            }
+        },200);
     }
 
 
