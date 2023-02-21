@@ -5,19 +5,18 @@ import android.app.Activity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LifecycleOwner;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class SwitchKeyboardUtil extends BaseSwitchKeyboardUtil {
     private OnKeyboardMenuListener onKeyboardMenuListener;
     private final MenuModeView IDLE = new MenuModeView(null,null);
     private MenuModeView menuMode = IDLE;
-    private final List<MenuModeView> menuModeViews = new ArrayList<>();
+    private MenuModeView[] menuModeViews;
     private View lastVisibleView;
     private MenuModeView lastMenuModeView;
 
@@ -30,7 +29,7 @@ public class SwitchKeyboardUtil extends BaseSwitchKeyboardUtil {
      * @param menuModeView 展开的点击按钮和对应的隐藏布局
      */
     public void setToggleMenuViews(MenuModeView... menuModeView) {
-        this.menuModeViews.addAll(Arrays.asList(menuModeView));
+        menuModeViews = menuModeView;
     }
 
     @Override
@@ -46,7 +45,7 @@ public class SwitchKeyboardUtil extends BaseSwitchKeyboardUtil {
 
             @Override
             public void onKeyboardHide(int keyboardHeight) {
-                if (menuMode == IDLE){
+                if (menuMode == IDLE && menuViewContainer != null){
                     menuViewContainer.setVisibility(View.GONE);
                 }
                 if (onKeyboardMenuListener != null) {
@@ -56,9 +55,8 @@ public class SwitchKeyboardUtil extends BaseSwitchKeyboardUtil {
 
             @Override
             public void onKeyboardShow(int keyboardHeight) {
-                if (menuMode == IDLE){
-                    isShowMenu  = false;
-                }
+                menuMode = IDLE;
+                isShowMenu  = false;
                 if (onKeyboardMenuListener != null) {
                     onKeyboardMenuListener.onKeyboardShow(keyboardHeight);
                 }
@@ -86,31 +84,39 @@ public class SwitchKeyboardUtil extends BaseSwitchKeyboardUtil {
                 }
             }
         });
-        for (MenuModeView menuModeView : menuModeViews) {
-            menuModeView.clickToggleView.setOnClickListener(v -> {
-                if (menuModeView.clickToggleViewIsMenuContainer){
-                    switchMenuIn(menuModeView);
-                }else {
-                    switchMenu(menuModeView);
+        if (menuModeViews != null){
+            int childNum = menuViewContainer.getChildCount();
+            for (MenuModeView menuModeView : menuModeViews) {
+                boolean isHasView = false;
+                for (int i = 0; i < childNum; i++) {
+                    View view = menuViewContainer.getChildAt(i);
+                    if (view == menuModeView.toggleViewContainer){
+                        isHasView = true;
+                    }
                 }
-            });
-            if (menuModeView.backView != null){
-                menuModeView.backView.setOnClickListener(v -> {
-                    for (MenuModeView menuModeView2 : menuModeViews) {
-                        menuModeView2.toggleViewContainer.setVisibility(View.GONE);
+                if (!isHasView){
+                    throw new IllegalArgumentException("menuModeView.toggleViewContainer 必须是 menuViewContainer 的子View");
+                }
+                menuModeView.clickToggleView.setOnClickListener(v -> {
+                    if (menuModeView.clickToggleViewIsMenuContainer){
+                        switchMenuIn(menuModeView);
+                    }else {
+                        switchMenu(menuModeView);
                     }
-                    if (lastVisibleView != null){
-                        lastVisibleView.setVisibility(View.VISIBLE);
-                    }
-                    setSwitchAnim(lastMenuModeView);
                 });
+                if (menuModeView.backView != null){
+                    menuModeView.backView.setOnClickListener(v -> {
+                        for (MenuModeView menuModeView2 : menuModeViews) {
+                            menuModeView2.toggleViewContainer.setVisibility(View.GONE);
+                        }
+                        if (lastVisibleView != null){
+                            lastVisibleView.setVisibility(View.VISIBLE);
+                        }
+                        setSwitchAnim(lastMenuModeView);
+                    });
+                }
             }
         }
-
-        etContent.setOnTouchListener((v, event) -> {
-            menuMode = IDLE;
-            return false;
-        });
     }
 
     private void switchMenu(MenuModeView clickViewMenuMode){
@@ -144,9 +150,13 @@ public class SwitchKeyboardUtil extends BaseSwitchKeyboardUtil {
                 if (onKeyboardMenuListener != null){
                     onKeyboardMenuListener.onShowMenuLayout(clickViewMenuMode.toggleViewContainer);
                 }
+            }else {
+                showKeyboardAnim();
             }
         }
     }
+
+
 
     private void switchMenuIn(MenuModeView clickViewMenuMode){
         recordLastVisibleView();
@@ -166,12 +176,27 @@ public class SwitchKeyboardUtil extends BaseSwitchKeyboardUtil {
                 stopSwitchAnim();
                 clickViewMenuMode.toggleViewContainer.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                 ViewHeight viewHeight = new ViewHeight(menuViewContainer);
-                clickViewMenuMode.toggleViewContainer.measure(0,0);
                 int startHeight = menuViewContainer.getHeight();
-                int endHeight = clickViewMenuMode.toggleViewContainer.getMeasuredHeight();
+                int marginVertical = 0;
+                if (menuViewContainer instanceof FrameLayout){
+                    FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) clickViewMenuMode.toggleViewContainer.getLayoutParams();
+                    marginVertical = layoutParams.topMargin+layoutParams.bottomMargin;
+                }else if (menuViewContainer instanceof RelativeLayout){
+                    RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) clickViewMenuMode.toggleViewContainer.getLayoutParams();
+                    marginVertical = layoutParams.topMargin+layoutParams.bottomMargin;
+                }else if (menuViewContainer instanceof LinearLayout){
+                    LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) clickViewMenuMode.toggleViewContainer.getLayoutParams();
+                    marginVertical = layoutParams.topMargin+layoutParams.bottomMargin;
+                }
+                clickViewMenuMode.toggleViewContainer.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+                int endHeight = clickViewMenuMode.toggleViewContainer.getMeasuredHeight()+menuViewContainer.getPaddingTop()+menuViewContainer.getPaddingBottom()+marginVertical;
                 int distance = Math.abs(startHeight - endHeight);
+                int duration = distance/SWITCH_ANIM_SPEED;
+                if (duration<200){
+                    duration = 200;
+                }
                 switchAnim = ObjectAnimator.ofInt(viewHeight,"viewHeight",startHeight,endHeight);
-                switchAnim.setDuration(distance/SWITCH_ANIM_SPEED);
+                switchAnim.setDuration(duration);
                 switchAnim.start();
             }
         });

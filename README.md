@@ -119,6 +119,8 @@ public class Example2Activity extends AppCompatActivity {
         setContentView(binding.getRoot());
         //是否让菜单高度和键盘高度一样（首次可能会有误差）
         switchKeyboardUtil.setMenuViewHeightEqualKeyboard(true);
+        //切换时是否使用动画（setMenuViewHeightEqualKeyboard 设置为false才起作用）
+        switchKeyboardUtil.setUseSwitchAnim(true);
         //所有设置设置这个之后才起效，必须在onCreate中调用
         switchKeyboardUtil.attachLifecycle(this);
         //输入框
@@ -148,7 +150,7 @@ public class Example2Activity extends AppCompatActivity {
 
             @Override
             public void onKeyboardShow(int keyboardHeight) {
-                //当键盘现实后回调
+                //当键盘显示后回调
                 binding.tvAudio.setImageResource(R.drawable.ic_audio);
             }
 
@@ -166,6 +168,13 @@ public class Example2Activity extends AppCompatActivity {
             public void onShowMenuLayout(View layoutView) {
                 //当显示某个菜单布局(即 MenuModeView.toggleViewContainer )时回调 
                 binding.tvAudio.setImageResource(layoutView == binding.tvAudioTouch?R.drawable.ic_keyboard:R.drawable.ic_audio);
+            }
+        });
+        //你的输入框如果需要设置 setOnTouchListener 请调用这个，否则将会影响切换动画
+        switchKeyboardUtil.setEtContentOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return false;
             }
         });
     }

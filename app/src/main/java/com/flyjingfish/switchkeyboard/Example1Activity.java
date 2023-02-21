@@ -2,6 +2,7 @@ package com.flyjingfish.switchkeyboard;
 
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
@@ -68,6 +69,12 @@ public class Example1Activity extends AppCompatActivity {
             public void onShowMenuLayout(View layoutView) {
                 binding.tvAudio.setImageResource(layoutView == binding.tvAudioTouch?R.drawable.ic_keyboard:R.drawable.ic_audio);
                 binding.ivFace.setImageResource(layoutView == binding.llEmoji?R.drawable.ic_keyboard:R.drawable.ic_face);
+            }
+        });
+        switchKeyboardUtil.setEtContentOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return false;
             }
         });
 

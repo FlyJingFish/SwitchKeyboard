@@ -3,6 +3,7 @@ package com.flyjingfish.switchkeyboardlib;
 import static android.util.TypedValue.COMPLEX_UNIT_DIP;
 
 import android.animation.ObjectAnimator;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -12,12 +13,16 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.TypedValue;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -40,6 +45,8 @@ public class BaseSwitchKeyboardUtil {
     protected boolean keyboardIsShow;
     protected int keyboardHeight;
     protected static final int SWITCH_ANIM_SPEED = 2;
+    private View.OnTouchListener etContentOnTouchListener;
+    private boolean isRecordKeyboardHeight;
 
     public BaseSwitchKeyboardUtil(Activity activity) {
         this.activity = activity;
@@ -81,17 +88,34 @@ public class BaseSwitchKeyboardUtil {
      *
      * @param menuViewContainer 菜单总包裹布局（不可为空）
      */
-    public void setMenuViewContainer(@NonNull ViewGroup menuViewContainer) {
+    public void setMenuViewContainer(@NonNull FrameLayout menuViewContainer) {
+        this.menuViewContainer = menuViewContainer;
+    }
+
+    /**
+     *
+     * @param menuViewContainer 菜单总包裹布局（不可为空）
+     */
+    public void setMenuViewContainer(@NonNull RelativeLayout menuViewContainer) {
+        this.menuViewContainer = menuViewContainer;
+    }
+
+    /**
+     *
+     * @param menuViewContainer 菜单总包裹布局（不可为空）
+     */
+    public void setMenuViewContainer(@NonNull LinearLayout menuViewContainer) {
         this.menuViewContainer = menuViewContainer;
     }
 
     protected void saveKeyboardHeight(int value){
-        SharedPreferences sp = activity.getApplication().getSharedPreferences("MyData", Context.MODE_PRIVATE);
+        SharedPreferences sp = activity.getApplication().getSharedPreferences("SwitchKeyboardData", Context.MODE_PRIVATE);
         sp.edit().putInt("KeyboardHeight", value).apply();
     }
 
     protected int getKeyboardHeight(){
-        SharedPreferences sp = activity.getApplication().getSharedPreferences("MyData", Context.MODE_PRIVATE);
+        SharedPreferences sp = activity.getApplication().getSharedPreferences("SwitchKeyboardData", Context.MODE_PRIVATE);
+        isRecordKeyboardHeight = sp.contains("KeyboardHeight");
         return sp.getInt("KeyboardHeight", (int) TypedValue.applyDimension(COMPLEX_UNIT_DIP,240,activity.getResources().getDisplayMetrics()));
     }
 
@@ -114,6 +138,7 @@ public class BaseSwitchKeyboardUtil {
         }
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     protected void onCreate(@NonNull LifecycleOwner owner){
         keyboardUtils = new SystemKeyboardUtils(activity);
         keyboardUtils.setOnKeyBoardListener(onKeyBoardListener);
@@ -124,7 +149,9 @@ public class BaseSwitchKeyboardUtil {
             layoutParams.height = menuHeight;
             menuViewContainer.setLayoutParams(layoutParams);
         }
-
+        if (isRecordKeyboardHeight){
+            keyboardHeight  = menuHeight;
+        }
         if (audioBtn != null){
             audioBtn.setOnClickListener(v -> {
 
@@ -163,6 +190,16 @@ public class BaseSwitchKeyboardUtil {
                 isShowMenu = false;
             });
         }
+
+        etContent.setOnTouchListener((v, event) -> {
+            if (!keyboardIsShow && event.getAction() == MotionEvent.ACTION_DOWN){
+                showKeyboardAnim();
+            }
+            if (etContentOnTouchListener != null){
+                return etContentOnTouchListener.onTouch(v,event);
+            }
+            return false;
+        });
     }
 
     protected void onDestroy(@NonNull LifecycleOwner owner){
@@ -171,6 +208,23 @@ public class BaseSwitchKeyboardUtil {
         stopSwitchAnim();
     }
 
+    protected void showKeyboardAnim(){
+        if (useSwitchAnim){
+            int startHeight = menuViewContainer.getHeight();
+            if (startHeight != keyboardHeight && keyboardHeight > 0){
+                stopSwitchAnim();
+                ViewHeight viewHeight = new ViewHeight(menuViewContainer);
+                int distance = Math.abs(startHeight - keyboardHeight);
+                int duration = distance/SWITCH_ANIM_SPEED;
+                if (duration<200){
+                    duration = 200;
+                }
+                switchAnim = ObjectAnimator.ofInt(viewHeight,"viewHeight",startHeight,keyboardHeight);
+                switchAnim.setDuration(duration);
+                switchAnim.start();
+            }
+        }
+    }
 
     public void hideKeyboard() {
         if (onKeyboardMenuListener != null){
@@ -219,19 +273,27 @@ public class BaseSwitchKeyboardUtil {
     private final SystemKeyboardUtils.OnKeyBoardListener onKeyBoardListener = new SystemKeyboardUtils.OnKeyBoardListener() {
         @Override
         public void onShow(int height) {
-            int startHeight = menuViewContainer.getHeight();
-            if (menuViewHeightEqualKeyboard || startHeight <= height || !useSwitchAnim){
-                ViewGroup.LayoutParams layoutParams = menuViewContainer.getLayoutParams();
-                layoutParams.height = height;
-                menuViewContainer.setLayoutParams(layoutParams);
-            }else {
-                stopSwitchAnim();
-                ViewHeight viewHeight = new ViewHeight(menuViewContainer);
-                int distance = Math.abs(startHeight - height);
-                switchAnim = ObjectAnimator.ofInt(viewHeight,"viewHeight",startHeight,height);
-                switchAnim.setDuration(distance/SWITCH_ANIM_SPEED);
-                switchAnim.start();
-            }
+            stopSwitchAnim();
+            ViewGroup.LayoutParams layoutParams = menuViewContainer.getLayoutParams();
+            layoutParams.height = height;
+            menuViewContainer.setLayoutParams(layoutParams);
+//            int startHeight = menuViewContainer.getHeight();
+//            if (menuViewHeightEqualKeyboard || startHeight <= height || !useSwitchAnim){
+//                ViewGroup.LayoutParams layoutParams = menuViewContainer.getLayoutParams();
+//                layoutParams.height = height;
+//                menuViewContainer.setLayoutParams(layoutParams);
+//            }else {
+//                stopSwitchAnim();
+//                ViewHeight viewHeight = new ViewHeight(menuViewContainer);
+//                int distance = Math.abs(startHeight - height);
+//                int duration = distance/SWITCH_ANIM_SPEED;
+//                if (duration<200){
+//                    duration = 200;
+//                }
+//                switchAnim = ObjectAnimator.ofInt(viewHeight,"viewHeight",startHeight,height);
+//                switchAnim.setDuration(duration);
+//                switchAnim.start();
+//            }
 
             menuViewContainer.setVisibility(View.INVISIBLE);
             saveKeyboardHeight(height);
@@ -247,6 +309,9 @@ public class BaseSwitchKeyboardUtil {
         public void onHide(int height) {
             if (onKeyboardMenuListener != null){
                 onKeyboardMenuListener.onKeyboardHide(height);
+            }
+            if (!(BaseSwitchKeyboardUtil.this instanceof SwitchKeyboardUtil) && !isShowMenu){
+                menuViewContainer.setVisibility(View.GONE);
             }
             keyboardIsShow = false;
         }
@@ -359,5 +424,9 @@ public class BaseSwitchKeyboardUtil {
 
     public void setUseSwitchAnim(boolean useSwitchAnim) {
         this.useSwitchAnim = useSwitchAnim;
+    }
+
+    public void setEtContentOnTouchListener(View.OnTouchListener etContentOnTouchListener) {
+        this.etContentOnTouchListener = etContentOnTouchListener;
     }
 }
