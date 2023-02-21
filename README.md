@@ -217,7 +217,7 @@ public class Example2Activity extends AppCompatActivity {
 ### 3、布局中不可使用 fitsSystemWindows 属性为true
 
 
-### 关于打开页面时键盘的状态
+## 关于打开页面时键盘的状态
 
 **1、有些机型会自动打开键盘，可设置 windowSoftInputMode 模式来解决，例如你不希望打开键盘就可以设置 stateAlwaysHidden 或 stateHidden**
 
