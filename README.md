@@ -107,7 +107,6 @@
 
 public class Example2Activity extends AppCompatActivity {
     private SwitchKeyboardUtil switchKeyboardUtil;
-    private ActivitySecond2Binding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
