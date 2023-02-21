@@ -217,11 +217,11 @@ public class Example2Activity extends AppCompatActivity {
 ### 3、布局中不可使用 fitsSystemWindows 属性为true
 
 
-## 关于打开页面时键盘的状态
+### 关于打开页面时键盘的状态
 
-### 1、有些机型会自动打开键盘，可设置 windowSoftInputMode 模式来解决，例如你不希望打开键盘就可以设置 stateAlwaysHidden 或 stateHidden
+**1、有些机型会自动打开键盘，可设置 windowSoftInputMode 模式来解决，例如你不希望打开键盘就可以设置 stateAlwaysHidden 或 stateHidden**
 
-### 2、如果想自动弹出键盘，可设置 windowSoftInputMode 为 stateAlwaysVisible 或 stateVisible
+**2、如果想自动弹出键盘，可设置 windowSoftInputMode 为 stateAlwaysVisible 或 stateVisible**
 
 
 # 最后推荐我写的另一个库，轻松实现在应用内点击小图查看大图的动画放大效果
