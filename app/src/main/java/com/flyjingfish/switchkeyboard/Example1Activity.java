@@ -98,7 +98,7 @@ public class Example1Activity extends AppCompatActivity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK && switchKeyboardUtil.onKeyDown(keyCode, event)){
+        if (switchKeyboardUtil.onKeyDown(keyCode, event)){
             return true;
         }
         return super.onKeyDown(keyCode, event);

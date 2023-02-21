@@ -185,7 +185,7 @@ public class Example2Activity extends AppCompatActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         //此处是用于点击手机返回按钮时关闭菜单
-        if (keyCode == KeyEvent.KEYCODE_BACK && switchKeyboardUtil.onKeyDown(keyCode, event)) {
+        if (switchKeyboardUtil.onKeyDown(keyCode, event)) {
             return true;
         }
         return super.onKeyDown(keyCode, event);
