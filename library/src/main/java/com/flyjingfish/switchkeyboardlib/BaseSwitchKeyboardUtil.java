@@ -264,6 +264,9 @@ public class BaseSwitchKeyboardUtil {
         if (keyCode == KeyEvent.KEYCODE_BACK && isShowMenu){
             menuViewContainer.setVisibility(View.GONE);
             isShowMenu = false;
+            if (onKeyboardMenuListener != null){
+                onKeyboardMenuListener.onHideMenuViewContainer();
+            }
             return true;
         }
         return false;
@@ -341,9 +344,7 @@ public class BaseSwitchKeyboardUtil {
      */
     public boolean toggleMoreView(){
         if (!isShowMenu){
-
             isShowMenu = true;
-
             menuViewContainer.setVisibility(View.VISIBLE);
             if (audioTouchVIew != null){
                 audioTouchVIew.setVisibility(View.GONE);
@@ -376,11 +377,12 @@ public class BaseSwitchKeyboardUtil {
 
     public interface OnKeyboardMenuListener{
         void onScrollToBottom();
-        void onKeyboardHide(int keyboardHeight);
-        void onKeyboardShow(int keyboardHeight);
         void onCallShowKeyboard();
         void onCallHideKeyboard();
+        void onKeyboardHide(int keyboardHeight);
+        void onKeyboardShow(int keyboardHeight);
         void onShowMenuLayout(View layoutView);
+        void onHideMenuViewContainer();
     }
 
     /**
@@ -428,5 +430,17 @@ public class BaseSwitchKeyboardUtil {
 
     public void setEtContentOnTouchListener(View.OnTouchListener etContentOnTouchListener) {
         this.etContentOnTouchListener = etContentOnTouchListener;
+    }
+
+    public void hideMenuAndKeyboard(){
+        if (isShowMenu){
+            menuViewContainer.setVisibility(View.GONE);
+            isShowMenu = false;
+            if (onKeyboardMenuListener != null){
+                onKeyboardMenuListener.onHideMenuViewContainer();
+            }
+        }else {
+            hideKeyboard();
+        }
     }
 }

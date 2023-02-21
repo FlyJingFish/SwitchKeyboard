@@ -83,6 +83,13 @@ public class SwitchKeyboardUtil extends BaseSwitchKeyboardUtil {
                     onKeyboardMenuListener.onShowMenuLayout(layoutView);
                 }
             }
+
+            @Override
+            public void onHideMenuViewContainer() {
+                if (onKeyboardMenuListener != null) {
+                    onKeyboardMenuListener.onHideMenuViewContainer();
+                }
+            }
         });
         if (menuModeViews != null){
             int childNum = menuViewContainer.getChildCount();
@@ -112,7 +119,7 @@ public class SwitchKeyboardUtil extends BaseSwitchKeyboardUtil {
                         if (lastVisibleView != null){
                             lastVisibleView.setVisibility(View.VISIBLE);
                         }
-                        setSwitchAnim(lastMenuModeView);
+                        setSwitchAnim(lastMenuModeView,menuViewContainer.getVisibility());
                     });
                 }
             }
@@ -121,13 +128,14 @@ public class SwitchKeyboardUtil extends BaseSwitchKeyboardUtil {
 
     private void switchMenu(MenuModeView clickViewMenuMode){
         recordLastVisibleView();
+        int menuViewContainerVisibility = menuViewContainer.getVisibility();
         if (menuMode == IDLE){
             menuMode = clickViewMenuMode;
             toggleMoreView();
             for (MenuModeView menuModeView : menuModeViews) {
                 menuModeView.toggleViewContainer.setVisibility(clickViewMenuMode == menuModeView?View.VISIBLE:View.GONE);
             }
-            setSwitchAnim(clickViewMenuMode);
+            setSwitchAnim(clickViewMenuMode,menuViewContainerVisibility);
             if (onKeyboardMenuListener != null){
                 onKeyboardMenuListener.onShowMenuLayout(clickViewMenuMode.toggleViewContainer);
             }
@@ -136,7 +144,7 @@ public class SwitchKeyboardUtil extends BaseSwitchKeyboardUtil {
             for (MenuModeView menuModeView : menuModeViews) {
                 menuModeView.toggleViewContainer.setVisibility(clickViewMenuMode == menuModeView?View.VISIBLE:View.GONE);
             }
-            setSwitchAnim(clickViewMenuMode);
+            setSwitchAnim(clickViewMenuMode,menuViewContainerVisibility);
             if (onKeyboardMenuListener != null){
                 onKeyboardMenuListener.onShowMenuLayout(clickViewMenuMode.toggleViewContainer);
             }
@@ -146,7 +154,7 @@ public class SwitchKeyboardUtil extends BaseSwitchKeyboardUtil {
                 for (MenuModeView menuModeView : menuModeViews) {
                     menuModeView.toggleViewContainer.setVisibility(clickViewMenuMode == menuModeView?View.VISIBLE:View.GONE);
                 }
-                setSwitchAnim(clickViewMenuMode);
+                setSwitchAnim(clickViewMenuMode,menuViewContainerVisibility);
                 if (onKeyboardMenuListener != null){
                     onKeyboardMenuListener.onShowMenuLayout(clickViewMenuMode.toggleViewContainer);
                 }
@@ -163,20 +171,25 @@ public class SwitchKeyboardUtil extends BaseSwitchKeyboardUtil {
         for (MenuModeView menuModeView : menuModeViews) {
             menuModeView.toggleViewContainer.setVisibility(clickViewMenuMode == menuModeView?View.VISIBLE:View.GONE);
         }
-        setSwitchAnim(clickViewMenuMode);
+        setSwitchAnim(clickViewMenuMode,menuViewContainer.getVisibility());
     }
 
-    private void setSwitchAnim(MenuModeView clickViewMenuMode){
+    private void setSwitchAnim(MenuModeView clickViewMenuMode, int menuViewContainerVisibility){
         if (lastVisibleView == null || !useSwitchAnim){
             return;
+        }
+        final ViewHeight viewHeight = new ViewHeight(menuViewContainer);
+        if (menuViewContainerVisibility == View.GONE){
+            viewHeight.setViewHeight(0);
         }
         clickViewMenuMode.toggleViewContainer.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
                 stopSwitchAnim();
                 clickViewMenuMode.toggleViewContainer.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                ViewHeight viewHeight = new ViewHeight(menuViewContainer);
-                int startHeight = menuViewContainer.getHeight();
+
+                menuViewContainer.setVisibility(View.VISIBLE);
+                int startHeight = menuViewContainerVisibility == View.GONE?0: menuViewContainer.getHeight();
                 int marginVertical = 0;
                 if (menuViewContainer instanceof FrameLayout){
                     FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) clickViewMenuMode.toggleViewContainer.getLayoutParams();

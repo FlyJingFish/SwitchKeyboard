@@ -144,6 +144,16 @@ public class Example2Activity extends AppCompatActivity {
             }
 
             @Override
+            public void onCallShowKeyboard() {
+                //当调用显示键盘前回调
+            }
+
+            @Override
+            public void onCallHideKeyboard() {
+                //当调用隐藏键盘前回调
+            }
+
+            @Override
             public void onKeyboardHide(int keyboardHeight) {
                 //当键盘隐藏后回调
             }
@@ -156,26 +166,33 @@ public class Example2Activity extends AppCompatActivity {
             }
 
             @Override
-            public void onCallShowKeyboard() {
-                //当调用显示键盘前回调
-            }
-
-            @Override
-            public void onCallHideKeyboard() {
-                //当调用隐藏键盘前回调
-            }
-
-            @Override
             public void onShowMenuLayout(View layoutView) {
                 //当显示某个菜单布局(即 MenuModeView.toggleViewContainer )时回调 
                 tvAudio.setImageResource(layoutView == tvAudioTouch?R.drawable.ic_keyboard:R.drawable.ic_audio);
                 ivFace.setImageResource(layoutView == llEmoji?R.drawable.ic_keyboard:R.drawable.ic_face);
+            }
+
+            @Override
+            public void onHideMenuViewContainer() {
+                binding.tvAudio.setImageResource(R.drawable.ic_audio);
+                binding.ivFace.setImageResource(R.drawable.ic_face);
             }
         });
         //你的输入框如果需要设置 setOnTouchListener 请调用这个，否则将会影响切换动画
         switchKeyboardUtil.setEtContentOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
+                return false;
+            }
+        });
+
+        recyclerView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN){
+                    //收起键盘或菜单
+                    switchKeyboardUtil.hideMenuAndKeyboard();
+                }
                 return false;
             }
         });

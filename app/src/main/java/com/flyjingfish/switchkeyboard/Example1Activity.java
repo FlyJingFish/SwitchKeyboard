@@ -46,6 +46,15 @@ public class Example1Activity extends AppCompatActivity {
             }
 
             @Override
+            public void onCallShowKeyboard() {
+
+            }
+
+            @Override
+            public void onCallHideKeyboard() {
+            }
+
+            @Override
             public void onKeyboardHide(int keyboardHeight) {
 
             }
@@ -56,19 +65,18 @@ public class Example1Activity extends AppCompatActivity {
                 binding.ivFace.setImageResource(R.drawable.ic_face);
             }
 
-            @Override
-            public void onCallShowKeyboard() {
 
-            }
-
-            @Override
-            public void onCallHideKeyboard() {
-            }
 
             @Override
             public void onShowMenuLayout(View layoutView) {
                 binding.tvAudio.setImageResource(layoutView == binding.tvAudioTouch?R.drawable.ic_keyboard:R.drawable.ic_audio);
                 binding.ivFace.setImageResource(layoutView == binding.llEmoji?R.drawable.ic_keyboard:R.drawable.ic_face);
+            }
+
+            @Override
+            public void onHideMenuViewContainer() {
+                binding.tvAudio.setImageResource(R.drawable.ic_audio);
+                binding.ivFace.setImageResource(R.drawable.ic_face);
             }
         });
         switchKeyboardUtil.setEtContentOnTouchListener(new View.OnTouchListener() {
@@ -77,7 +85,15 @@ public class Example1Activity extends AppCompatActivity {
                 return false;
             }
         });
-
+        binding.rv.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN){
+                    switchKeyboardUtil.hideMenuAndKeyboard();
+                }
+                return false;
+            }
+        });
         binding.tvVideo.setOnClickListener(v -> Toast.makeText(this,"去视频通话",Toast.LENGTH_SHORT).show());
         List<String> msgList = new ArrayList<>();
         for (int i = 0; i < 60; i++) {
@@ -86,7 +102,6 @@ public class Example1Activity extends AppCompatActivity {
         MsgAdapter msgAdapter = new MsgAdapter(msgList);
         binding.rv.setAdapter(msgAdapter);
         binding.rv.setLayoutManager(new LinearLayoutManager(this));
-
     }
 
 
