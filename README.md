@@ -210,11 +210,10 @@ public class Example2Activity extends AppCompatActivity {
 
 ### 1、在 Activity 调用 setContentView() 之前，先调用 checkSoftMode()
 
-### 2、本工具类设置了布局全屏显示,并设置了透明状态栏，请自行适配顶部返回键一栏距离顶部的距离
+### 2、本工具类设置了布局全屏显示,并设置了透明状态栏，请自行适配顶部返回键一栏距离顶部的距离和状态栏字体颜色
 
 ### 3、布局中不可使用 fitsSystemWindows 属性为true
 
-### 4、菜单是否和键盘高度一致可根据构造参数设置，更多使用详情请看代码
 
 ## 关于打开页面时键盘的状态
 
