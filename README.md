@@ -193,7 +193,7 @@ public class Example2Activity extends AppCompatActivity {
     }
 
     private void scrollToBottom() {
-        binding.rv.scrollToPosition(binding.rv.getAdapter().getItemCount() - 1);
+        recyclerView.scrollToPosition(recyclerView.getAdapter().getItemCount() - 1);
     }
 }
 ```
