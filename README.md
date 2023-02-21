@@ -115,8 +115,7 @@ public class Example2Activity extends AppCompatActivity {
         switchKeyboardUtil = new SwitchKeyboardUtil(this);
         //checkSoftMode 必须在 setContentView 之前调用
         switchKeyboardUtil.checkSoftMode();
-        binding = ActivitySecond2Binding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        setContentView(R.layout.activity_example1);
         //是否让菜单高度和键盘高度一样（首次可能会有误差）
         switchKeyboardUtil.setMenuViewHeightEqualKeyboard(true);
         //切换时是否使用动画（setMenuViewHeightEqualKeyboard 设置为false才起作用）
@@ -124,18 +123,19 @@ public class Example2Activity extends AppCompatActivity {
         //所有设置设置这个之后才起效，必须在onCreate中调用
         switchKeyboardUtil.attachLifecycle(this);
         //输入框
-        switchKeyboardUtil.setInputEditText(binding.etContent);
+        switchKeyboardUtil.setInputEditText(etContent);
         //切换语音的按钮
-        switchKeyboardUtil.setAudioBtn(binding.tvAudio);
+        switchKeyboardUtil.setAudioBtn(tvAudio);
         //语音录制按钮
-        switchKeyboardUtil.setAudioTouchVIew(binding.tvAudioTouch);
+        switchKeyboardUtil.setAudioTouchVIew(tvAudioTouch);
         //存放所有菜单的布局
-        switchKeyboardUtil.setMenuViewContainer(binding.llMenu);
+        switchKeyboardUtil.setMenuViewContainer(llMenu);
         //设置切换菜单的切换按钮和菜单布局
-        switchKeyboardUtil.setToggleMenuViews(new MenuModeView(binding.tvMore,binding.llMenuBtn),
-                new MenuModeView(binding.ivFace,binding.llEmoji),
-                new MenuModeView(binding.tvGift,binding.llGift),
-                new MenuModeView(binding.tvWord,binding.llWord));
+        switchKeyboardUtil.setToggleMenuViews(
+                new MenuModeView(tvMore,llMenuBtn),
+                new MenuModeView(ivFace,llEmoji),
+                new MenuModeView(tvGift,llGift),
+                new MenuModeView(tvWord,llWord));
         //设置监听
         switchKeyboardUtil.setOnKeyboardMenuListener(new BaseSwitchKeyboardUtil.OnKeyboardMenuListener() {
             @Override
@@ -152,8 +152,8 @@ public class Example2Activity extends AppCompatActivity {
             @Override
             public void onKeyboardShow(int keyboardHeight) {
                 //当键盘显示后回调
-                binding.tvAudio.setImageResource(R.drawable.ic_audio);
-                binding.ivFace.setImageResource(R.drawable.ic_face);
+                tvAudio.setImageResource(R.drawable.ic_audio);
+                ivFace.setImageResource(R.drawable.ic_face);
             }
 
             @Override
@@ -169,8 +169,8 @@ public class Example2Activity extends AppCompatActivity {
             @Override
             public void onShowMenuLayout(View layoutView) {
                 //当显示某个菜单布局(即 MenuModeView.toggleViewContainer )时回调 
-                binding.tvAudio.setImageResource(layoutView == binding.tvAudioTouch?R.drawable.ic_keyboard:R.drawable.ic_audio);
-                binding.ivFace.setImageResource(layoutView == binding.llEmoji?R.drawable.ic_keyboard:R.drawable.ic_face);
+                tvAudio.setImageResource(layoutView == tvAudioTouch?R.drawable.ic_keyboard:R.drawable.ic_audio);
+                ivFace.setImageResource(layoutView == llEmoji?R.drawable.ic_keyboard:R.drawable.ic_face);
             }
         });
         //你的输入框如果需要设置 setOnTouchListener 请调用这个，否则将会影响切换动画
