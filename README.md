@@ -212,7 +212,7 @@ public class Example2Activity extends AppCompatActivity {
 
 ### 2、本工具类设置了布局全屏显示,并设置了透明状态栏，请自行适配顶部返回键一栏距离顶部的距离和状态栏字体颜色
 
-### 如果你设置状态栏字体颜色后出现问题，可在你的代码后再次调用 setSystemUi() 来修正
+**PS:如果你设置状态栏字体颜色后出现问题，可在你的代码后再次调用 setSystemUi() 来修正**
 
 ### 3、布局中不可使用 fitsSystemWindows 属性为true
 
