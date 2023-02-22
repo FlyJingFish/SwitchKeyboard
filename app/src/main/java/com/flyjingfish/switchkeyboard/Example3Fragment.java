@@ -37,7 +37,6 @@ public class Example3Fragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         switchKeyboardUtil = new SwitchKeyboardUtil(requireActivity());
-        switchKeyboardUtil.checkSoftMode();
         switchKeyboardUtil.setMenuViewHeightEqualKeyboard(false);
         switchKeyboardUtil.setUseSwitchAnim(true);
         switchKeyboardUtil.setInputEditText(binding.etContent);
