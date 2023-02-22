@@ -232,22 +232,22 @@ public class Example2Activity extends AppCompatActivity {
 
 ## 特别注意(如果不注意的话可能会显示异常)
 
-### 1、在 Activity 调用 setContentView() 之前，先调用 checkSoftMode()
+1、在 Activity 调用 setContentView() 之前，先调用 checkSoftMode()
 
-### 2、本工具类设置了布局全屏显示,并设置了透明状态栏，请自行适配顶部返回键一栏距离顶部的距离和状态栏字体颜色
+2、本工具类设置了布局全屏显示,并设置了透明状态栏，请自行适配顶部返回键一栏距离顶部的距离和状态栏字体颜色
 
 **PS:如果你设置状态栏字体颜色后出现问题，可在你的代码后再次调用 setSystemUi() 来修正**
 
 **（正常来说如果你在onCreate 中设置过一次字体颜色是没有问题的，但如果在其他地方还有设置字体颜色是有可能影响的,原因是你切换字体颜色的代码影响了原本的设置）**
 
-### 3、布局中不可使用 fitsSystemWindows 属性为true
+3、布局中不可使用 fitsSystemWindows 属性为true
 
 
 ## 关于打开页面时键盘的状态
 
-**1、有些机型会自动打开键盘，可设置 windowSoftInputMode 模式来解决，例如你不希望打开键盘就可以设置 stateAlwaysHidden 或 stateHidden**
+1、有些机型会自动打开键盘，可设置 windowSoftInputMode 模式来解决，例如你不希望打开键盘就可以设置 stateAlwaysHidden 或 stateHidden
 
-**2、如果想自动弹出键盘，可设置 windowSoftInputMode 为 stateAlwaysVisible 或 stateVisible**
+2、如果想自动弹出键盘，可设置 windowSoftInputMode 为 stateAlwaysVisible 或 stateVisible
 
 
 # 最后推荐我写的另一个库，轻松实现在应用内点击小图查看大图的动画放大效果
