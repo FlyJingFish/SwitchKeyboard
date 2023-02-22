@@ -116,7 +116,7 @@ public class Example2Activity extends AppCompatActivity {
         switchKeyboardUtil.checkSoftMode();
         setContentView(R.layout.activity_example1);
         //是否让菜单高度和键盘高度一样（首次可能会有误差）
-        switchKeyboardUtil.setMenuViewHeightEqualKeyboard(true);
+        switchKeyboardUtil.setMenuViewHeightEqualKeyboard(false);
         //切换时是否使用动画（setMenuViewHeightEqualKeyboard 设置为false才起作用）
         switchKeyboardUtil.setUseSwitchAnim(true);
         //所有设置设置这个之后才起效，必须在onCreate中调用
