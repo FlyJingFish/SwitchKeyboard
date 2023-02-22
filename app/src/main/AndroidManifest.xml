@@ -34,7 +34,6 @@
         </activity>
         <activity
             android:name="com.flyjingfish.switchkeyboard.Example3Activity"
-            android:windowSoftInputMode="adjustNothing"
             android:exported="true">
         </activity>
     </application>
