@@ -46,6 +46,6 @@
             android:layout_marginTop="10dp"
             android:textColor="@color/white"
             android:background="@drawable/bg_hollow2"
-            android:text="example3"/>
+            android:text="在 Fragment 中使用"/>
     </LinearLayout>
 </RelativeLayout>

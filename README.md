@@ -228,7 +228,7 @@ public class Example2Activity extends AppCompatActivity {
 
 2、假如有按钮**不在输入框一栏时** 打开底部隐藏菜单时 详情可看[Example2Activity](https://github.com/FlyJingFish/SwitchKeyboard/blob/master/app/src/main/java/com/flyjingfish/switchkeyboard/Example2Activity.java) 对应布局 [activity_example2](https://github.com/FlyJingFish/SwitchKeyboard/blob/master/app/src/main/res/layout/activity_example2.xml)
 
-3、如果**在Fragment中使用** 详情可看[Example3Activity](https://github.com/FlyJingFish/SwitchKeyboard/blob/master/app/src/main/java/com/flyjingfish/switchkeyboard/Example3Activity.java) 对应Fragment [Example3Fragment](https://github.com/FlyJingFish/SwitchKeyboard/blob/master/app/src/main/res/layout/Example3Fragment.java)
+3、如果**在Fragment中使用** 详情可看[Example3Activity](https://github.com/FlyJingFish/SwitchKeyboard/blob/master/app/src/main/java/com/flyjingfish/switchkeyboard/Example3Activity.java) 对应Fragment [Example3Fragment](https://github.com/FlyJingFish/SwitchKeyboard/blob/master/app/src/main/java/com/flyjingfish/switchkeyboard/Example3Fragment.java)
 
 
 
