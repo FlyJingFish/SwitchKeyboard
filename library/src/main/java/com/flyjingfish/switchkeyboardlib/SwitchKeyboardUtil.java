@@ -140,6 +140,7 @@ public class SwitchKeyboardUtil extends BaseSwitchKeyboardUtil {
                 onKeyboardMenuListener.onShowMenuLayout(clickViewMenuMode.toggleViewContainer);
             }
         }else if (menuMode != clickViewMenuMode){
+            isShowMenu = true;
             menuMode = clickViewMenuMode;
             for (MenuModeView menuModeView : menuModeViews) {
                 menuModeView.toggleViewContainer.setVisibility(clickViewMenuMode == menuModeView?View.VISIBLE:View.GONE);
