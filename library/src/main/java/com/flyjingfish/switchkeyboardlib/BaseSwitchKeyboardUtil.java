@@ -2,6 +2,7 @@ package com.flyjingfish.switchkeyboardlib;
 
 import static android.util.TypedValue.COMPLEX_UNIT_DIP;
 
+import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -42,6 +43,7 @@ public class BaseSwitchKeyboardUtil {
     protected ViewGroup menuViewContainer;
     protected boolean menuViewHeightEqualKeyboard;
     protected boolean useSwitchAnim = true;
+    protected boolean useMenuUpAnim = false;
     protected boolean keyboardIsShow;
     protected int keyboardHeight;
     protected static final int SWITCH_ANIM_SPEED = 2;
@@ -219,8 +221,10 @@ public class BaseSwitchKeyboardUtil {
                 if (duration<200){
                     duration = 200;
                 }
-                switchAnim = ObjectAnimator.ofInt(viewHeight,"viewHeight",startHeight,keyboardHeight);
-                switchAnim.setDuration(duration);
+                ObjectAnimator switchAnim1 = ObjectAnimator.ofInt(viewHeight,"viewHeight",startHeight,keyboardHeight);
+                switchAnim1.setDuration(duration);
+                switchAnim = new AnimatorSet();
+                switchAnim.playTogether(switchAnim1);
                 switchAnim.start();
             }
         }
@@ -272,7 +276,7 @@ public class BaseSwitchKeyboardUtil {
         return false;
     }
 
-    protected ObjectAnimator switchAnim;
+    protected AnimatorSet switchAnim;
     private final SystemKeyboardUtils.OnKeyBoardListener onKeyBoardListener = new SystemKeyboardUtils.OnKeyBoardListener() {
         @Override
         public void onShow(int height) {
@@ -426,6 +430,14 @@ public class BaseSwitchKeyboardUtil {
 
     public void setUseSwitchAnim(boolean useSwitchAnim) {
         this.useSwitchAnim = useSwitchAnim;
+    }
+
+    public boolean isUseMenuUpAnim() {
+        return useMenuUpAnim;
+    }
+
+    public void setUseMenuUpAnim(boolean useMenuUpAnim) {
+        this.useMenuUpAnim = useMenuUpAnim;
     }
 
     public void setEtContentOnTouchListener(View.OnTouchListener etContentOnTouchListener) {

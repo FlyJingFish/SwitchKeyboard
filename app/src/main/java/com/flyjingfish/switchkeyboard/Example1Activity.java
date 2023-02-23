@@ -30,6 +30,7 @@ public class Example1Activity extends AppCompatActivity {
         setContentView(binding.getRoot());
         switchKeyboardUtil.setMenuViewHeightEqualKeyboard(false);
         switchKeyboardUtil.setUseSwitchAnim(true);
+        switchKeyboardUtil.setUseMenuUpAnim(true);
         switchKeyboardUtil.attachLifecycle(this);
         switchKeyboardUtil.setInputEditText(binding.etContent);
         switchKeyboardUtil.setAudioBtn(binding.tvAudio);

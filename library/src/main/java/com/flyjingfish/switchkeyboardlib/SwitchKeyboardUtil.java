@@ -1,5 +1,6 @@
 package com.flyjingfish.switchkeyboardlib;
 
+import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.view.KeyEvent;
@@ -119,7 +120,7 @@ public class SwitchKeyboardUtil extends BaseSwitchKeyboardUtil {
                         if (lastVisibleView != null){
                             lastVisibleView.setVisibility(View.VISIBLE);
                         }
-                        setSwitchAnim(lastMenuModeView,menuViewContainer.getVisibility());
+                        setSwitchAnim(lastMenuModeView,menuViewContainer.getVisibility(),false);
                     });
                 }
             }
@@ -131,11 +132,11 @@ public class SwitchKeyboardUtil extends BaseSwitchKeyboardUtil {
         int menuViewContainerVisibility = menuViewContainer.getVisibility();
         if (menuMode == IDLE){
             menuMode = clickViewMenuMode;
-            toggleMoreView();
+            boolean showMenu = toggleMoreView();
             for (MenuModeView menuModeView : menuModeViews) {
                 menuModeView.toggleViewContainer.setVisibility(clickViewMenuMode == menuModeView?View.VISIBLE:View.GONE);
             }
-            setSwitchAnim(clickViewMenuMode,menuViewContainerVisibility);
+            setSwitchAnim(clickViewMenuMode,menuViewContainerVisibility,showMenu);
             if (onKeyboardMenuListener != null){
                 onKeyboardMenuListener.onShowMenuLayout(clickViewMenuMode.toggleViewContainer);
             }
@@ -145,7 +146,7 @@ public class SwitchKeyboardUtil extends BaseSwitchKeyboardUtil {
             for (MenuModeView menuModeView : menuModeViews) {
                 menuModeView.toggleViewContainer.setVisibility(clickViewMenuMode == menuModeView?View.VISIBLE:View.GONE);
             }
-            setSwitchAnim(clickViewMenuMode,menuViewContainerVisibility);
+            setSwitchAnim(clickViewMenuMode,menuViewContainerVisibility,false);
             if (onKeyboardMenuListener != null){
                 onKeyboardMenuListener.onShowMenuLayout(clickViewMenuMode.toggleViewContainer);
             }
@@ -155,7 +156,7 @@ public class SwitchKeyboardUtil extends BaseSwitchKeyboardUtil {
                 for (MenuModeView menuModeView : menuModeViews) {
                     menuModeView.toggleViewContainer.setVisibility(clickViewMenuMode == menuModeView?View.VISIBLE:View.GONE);
                 }
-                setSwitchAnim(clickViewMenuMode,menuViewContainerVisibility);
+                setSwitchAnim(clickViewMenuMode,menuViewContainerVisibility,true);
                 if (onKeyboardMenuListener != null){
                     onKeyboardMenuListener.onShowMenuLayout(clickViewMenuMode.toggleViewContainer);
                 }
@@ -172,10 +173,10 @@ public class SwitchKeyboardUtil extends BaseSwitchKeyboardUtil {
         for (MenuModeView menuModeView : menuModeViews) {
             menuModeView.toggleViewContainer.setVisibility(clickViewMenuMode == menuModeView?View.VISIBLE:View.GONE);
         }
-        setSwitchAnim(clickViewMenuMode,menuViewContainer.getVisibility());
+        setSwitchAnim(clickViewMenuMode,menuViewContainer.getVisibility(),false);
     }
 
-    private void setSwitchAnim(MenuModeView clickViewMenuMode, int menuViewContainerVisibility){
+    private void setSwitchAnim(MenuModeView clickViewMenuMode, int menuViewContainerVisibility,boolean isHideKeyboard){
         if (lastVisibleView == null || !useSwitchAnim || (menuViewHeightEqualKeyboard && keyboardHeight == 0)){
             return;
         }
@@ -211,11 +212,26 @@ public class SwitchKeyboardUtil extends BaseSwitchKeyboardUtil {
                 }
                 int finalEndHeight = menuViewHeightEqualKeyboard?keyboardHeight:endHeight;
                 if (startHeight != finalEndHeight){
-                    switchAnim = ObjectAnimator.ofInt(viewHeight,"viewHeight",startHeight,finalEndHeight);
-                    switchAnim.setDuration(duration);
+                    ObjectAnimator switchAnim1 = ObjectAnimator.ofInt(viewHeight,"viewHeight",startHeight,finalEndHeight);
+                    switchAnim1.setDuration(duration);
+                    switchAnim = new AnimatorSet();
+                    if (!isHideKeyboard && useMenuUpAnim){
+                        ObjectAnimator switchAnim2 = ObjectAnimator.ofFloat(clickViewMenuMode.toggleViewContainer,"translationY",finalEndHeight,0);
+                        switchAnim2.setDuration(duration);
+                        switchAnim.playTogether(switchAnim1,switchAnim2);
+                    }else {
+                        switchAnim.playTogether(switchAnim1);
+                    }
                     switchAnim.start();
                 }else {
                     viewHeight.setViewHeight(finalEndHeight);
+                    if (!isHideKeyboard && useMenuUpAnim){
+                        ObjectAnimator switchAnim2 = ObjectAnimator.ofFloat(clickViewMenuMode.toggleViewContainer,"translationY",finalEndHeight,0);
+                        switchAnim2.setDuration(duration);
+                        switchAnim = new AnimatorSet();
+                        switchAnim.playTogether(switchAnim2);
+                        switchAnim.start();
+                    }
                 }
             }
         });

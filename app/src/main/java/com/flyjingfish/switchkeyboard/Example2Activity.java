@@ -28,6 +28,7 @@ public class Example2Activity extends AppCompatActivity {
         binding = ActivityExample2Binding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         switchKeyboardUtil.setMenuViewHeightEqualKeyboard(true);
+        switchKeyboardUtil.setUseSwitchAnim(true);
         switchKeyboardUtil.attachLifecycle(this);
         switchKeyboardUtil.setInputEditText(binding.etContent);
         switchKeyboardUtil.setAudioBtn(binding.tvAudio);
