@@ -27,6 +27,7 @@ import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleEventObserver;
 import androidx.lifecycle.LifecycleOwner;
@@ -126,6 +127,9 @@ public class BaseSwitchKeyboardUtil {
      * @param lifecycleOwner
      */
     public void attachLifecycle(LifecycleOwner lifecycleOwner){
+        if (lifecycleOwner instanceof Fragment){
+            lifecycleOwner = ((Fragment) lifecycleOwner).getViewLifecycleOwner();
+        }
         lifecycleOwner.getLifecycle().addObserver(new MyLifecycleEventObserver());
     }
 

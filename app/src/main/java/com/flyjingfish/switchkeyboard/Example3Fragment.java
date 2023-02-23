@@ -47,7 +47,7 @@ public class Example3Fragment extends Fragment {
                 new MenuModeView(binding.ivFace,binding.llEmoji),
                 new MenuModeView(binding.tvGift,binding.llGift),
                 new MenuModeView(binding.tvWord,binding.llWord));
-        switchKeyboardUtil.attachLifecycle(getViewLifecycleOwner());//注意这里是 getViewLifecycleOwner 不是 this
+        switchKeyboardUtil.attachLifecycle(this);
         switchKeyboardUtil.setOnKeyboardMenuListener(new SwitchKeyboardUtil.OnKeyboardMenuListener() {
             @Override
             public void onScrollToBottom() {
