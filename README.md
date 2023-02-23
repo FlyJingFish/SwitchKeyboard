@@ -119,7 +119,7 @@ public class Example2Activity extends AppCompatActivity {
         switchKeyboardUtil.setMenuViewHeightEqualKeyboard(false);
         //切换时是否使用动画（默认开启）
         switchKeyboardUtil.setUseSwitchAnim(true);
-        //切换菜单时菜单从底部弹出 setUseSwitchAnim(true) 时才起作用 
+        //菜单之间切换时从底部弹出 setUseSwitchAnim(true) 时才起作用 
         switchKeyboardUtil.setUseMenuUpAnim(true);
         //所有设置设置这个之后才起效，必须在onCreate中调用
         switchKeyboardUtil.attachLifecycle(this);
