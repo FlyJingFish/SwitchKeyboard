@@ -41,7 +41,7 @@ public class BaseSwitchKeyboardUtil {
     protected Activity activity;
     protected ViewGroup menuViewContainer;
     protected boolean menuViewHeightEqualKeyboard;
-    protected boolean useSwitchAnim;
+    protected boolean useSwitchAnim = true;
     protected boolean keyboardIsShow;
     protected int keyboardHeight;
     protected static final int SWITCH_ANIM_SPEED = 2;

@@ -176,7 +176,7 @@ public class SwitchKeyboardUtil extends BaseSwitchKeyboardUtil {
     }
 
     private void setSwitchAnim(MenuModeView clickViewMenuMode, int menuViewContainerVisibility){
-        if (lastVisibleView == null || !useSwitchAnim){
+        if (lastVisibleView == null || !useSwitchAnim || (menuViewHeightEqualKeyboard && keyboardHeight == 0)){
             return;
         }
         final ViewHeight viewHeight = new ViewHeight(menuViewContainer);
@@ -209,9 +209,14 @@ public class SwitchKeyboardUtil extends BaseSwitchKeyboardUtil {
                 if (duration<200){
                     duration = 200;
                 }
-                switchAnim = ObjectAnimator.ofInt(viewHeight,"viewHeight",startHeight,endHeight);
-                switchAnim.setDuration(duration);
-                switchAnim.start();
+                int finalEndHeight = menuViewHeightEqualKeyboard?keyboardHeight:endHeight;
+                if (startHeight != finalEndHeight){
+                    switchAnim = ObjectAnimator.ofInt(viewHeight,"viewHeight",startHeight,finalEndHeight);
+                    switchAnim.setDuration(duration);
+                    switchAnim.start();
+                }else {
+                    viewHeight.setViewHeight(finalEndHeight);
+                }
             }
         });
     }
