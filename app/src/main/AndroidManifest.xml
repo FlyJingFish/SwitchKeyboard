@@ -26,15 +26,18 @@
         </activity>
         <activity
             android:name="com.flyjingfish.switchkeyboard.Example1Activity"
-            android:exported="true">
+            android:exported="true"
+            android:windowSoftInputMode="adjustNothing">
         </activity>
         <activity
             android:name="com.flyjingfish.switchkeyboard.Example2Activity"
-            android:exported="true">
+            android:exported="true"
+            android:windowSoftInputMode="adjustNothing">
         </activity>
         <activity
             android:name="com.flyjingfish.switchkeyboard.Example3Activity"
-            android:exported="true">
+            android:exported="true"
+            android:windowSoftInputMode="adjustNothing">
         </activity>
     </application>
 

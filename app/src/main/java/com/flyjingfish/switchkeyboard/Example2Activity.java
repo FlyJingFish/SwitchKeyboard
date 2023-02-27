@@ -23,10 +23,9 @@ public class Example2Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        switchKeyboardUtil = new SwitchKeyboardUtil(this);
-        switchKeyboardUtil.checkSoftMode();
         binding = ActivityExample2Binding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        switchKeyboardUtil = new SwitchKeyboardUtil(this);
         switchKeyboardUtil.setMenuViewHeightEqualKeyboard(true);
         switchKeyboardUtil.setUseSwitchAnim(true);
         switchKeyboardUtil.attachLifecycle(this);

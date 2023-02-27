@@ -29,7 +29,7 @@
 
 ```gradle
     dependencies {
-        implementation 'com.github.FlyJingFish:SwitchKeyboard:1.1.7'
+        implementation 'com.github.FlyJingFish:SwitchKeyboard:1.1.8'
     }
 ```
 ## 第三步，使用说明
@@ -112,8 +112,6 @@ public class Example2Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         switchKeyboardUtil = new SwitchKeyboardUtil(this);
-        //checkSoftMode 必须在 setContentView 之前调用
-        switchKeyboardUtil.checkSoftMode();
         setContentView(R.layout.activity_example1);
         //是否让菜单高度和键盘高度一样（首次可能会有误差）
         switchKeyboardUtil.setMenuViewHeightEqualKeyboard(false);
@@ -236,15 +234,13 @@ public class Example2Activity extends AppCompatActivity {
 
 ## 特别注意(如果不注意的话可能会显示异常)
 
-**1、在 Activity 调用 setContentView() 之前，先调用 checkSoftMode()**
-
-2、本工具类设置了布局全屏显示,并设置了透明状态栏，请自行适配顶部返回键一栏距离顶部的距离和状态栏字体颜色
+1、本工具类设置了布局全屏显示,并设置了透明状态栏，请自行适配顶部返回键一栏距离顶部的距离和状态栏字体颜色
 
 **PS:** 如果你设置状态栏字体颜色后出现问题，可在你的代码后**再次调用 setSystemUi() 来修正**
 
 （正常来说如果你在onCreate 中设置过一次字体颜色是没有问题的，但如果在其他地方还有设置字体颜色是有可能影响的,原因是你切换字体颜色的代码影响了原本的设置）
 
-3、布局中不可使用 fitsSystemWindows 属性为true
+2、布局中不可使用 fitsSystemWindows 属性为true
 
 
 ## 关于打开页面时键盘的状态

@@ -149,6 +149,7 @@ public class BaseSwitchKeyboardUtil {
         keyboardUtils = new SystemKeyboardUtils(activity);
         keyboardUtils.setOnKeyBoardListener(onKeyBoardListener);
         setSystemUi();
+        checkSoftMode();
         int menuHeight = getKeyboardHeight();
         if (menuViewHeightEqualKeyboard){
             ViewGroup.LayoutParams layoutParams = menuViewContainer.getLayoutParams();
@@ -424,7 +425,8 @@ public class BaseSwitchKeyboardUtil {
             if ((softMode | WindowManager.LayoutParams.SOFT_INPUT_STATE_UNCHANGED) == softMode){
                 newSoftMode |= WindowManager.LayoutParams.SOFT_INPUT_STATE_UNCHANGED;
             }
-            window.setSoftInputMode(newSoftMode|WindowManager.LayoutParams.SOFT_INPUT_ADJUST_UNSPECIFIED);
+            attrs.softInputMode = newSoftMode|WindowManager.LayoutParams.SOFT_INPUT_ADJUST_UNSPECIFIED;
+            window.setAttributes(attrs);
         }
     }
 

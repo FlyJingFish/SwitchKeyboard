@@ -17,8 +17,6 @@ public class Example3Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityExample3Binding.inflate(getLayoutInflater());
-        SwitchKeyboardUtil switchKeyboardUtil = new SwitchKeyboardUtil(this);
-        switchKeyboardUtil.checkSoftMode();//这句不要忘了哦
         setContentView(binding.getRoot());
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         example3Fragment = new Example3Fragment();
