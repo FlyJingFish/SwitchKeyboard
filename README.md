@@ -119,7 +119,7 @@ public class Example2Activity extends AppCompatActivity {
         switchKeyboardUtil.setUseSwitchAnim(true);
         //菜单之间切换时从底部弹出 setUseSwitchAnim(true) 时才起作用 
         switchKeyboardUtil.setUseMenuUpAnim(true);
-        //所有设置设置这个之后才起效，必须在onCreate中调用
+        //所有设置设置这个之后才起效
         switchKeyboardUtil.attachLifecycle(this);
         //输入框
         switchKeyboardUtil.setInputEditText(etContent);
