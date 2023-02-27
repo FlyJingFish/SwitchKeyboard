@@ -126,7 +126,6 @@
                     android:layout_height="wrap_content"
                     android:visibility="visible"
                     android:gravity="center"
-                    android:paddingVertical="80dp"
                     android:orientation="vertical">
                     <LinearLayout
                         android:layout_width="match_parent"
