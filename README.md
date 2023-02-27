@@ -121,15 +121,15 @@ public class Example2Activity extends AppCompatActivity {
         switchKeyboardUtil.setUseMenuUpAnim(true);
         //所有设置设置这个之后才起效
         switchKeyboardUtil.attachLifecycle(this);
-        //输入框
+        //输入框（必须设置）
         switchKeyboardUtil.setInputEditText(etContent);
-        //切换语音的按钮
+        //切换语音的按钮（不必设置）
         switchKeyboardUtil.setAudioBtn(tvAudio);
-        //语音录制按钮
+        //语音录制按钮（不必设置）
         switchKeyboardUtil.setAudioTouchVIew(tvAudioTouch);
-        //存放所有菜单的布局
+        //存放所有菜单的布局（必须设置）
         switchKeyboardUtil.setMenuViewContainer(llMenu);
-        //设置切换菜单的切换按钮和菜单布局
+        //设置切换菜单的切换按钮和菜单布局（不必设置）
         switchKeyboardUtil.setToggleMenuViews(
                 new MenuModeView(tvMore,llMenuBtn),
                 new MenuModeView(ivFace,llEmoji),
