@@ -111,8 +111,8 @@ public class Example2Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        switchKeyboardUtil = new SwitchKeyboardUtil(this);
         setContentView(R.layout.activity_example1);
+        switchKeyboardUtil = new SwitchKeyboardUtil(this);
         //是否让菜单高度和键盘高度一样（首次可能会有误差）
         switchKeyboardUtil.setMenuViewHeightEqualKeyboard(false);
         //切换时是否使用动画（默认开启）
