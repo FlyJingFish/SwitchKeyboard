@@ -29,7 +29,7 @@
 
 ```gradle
     dependencies {
-        implementation 'com.github.FlyJingFish:SwitchKeyboard:1.1.8'
+        implementation 'com.github.FlyJingFish:SwitchKeyboard:1.1.9'
     }
 ```
 ## 第三步，使用说明

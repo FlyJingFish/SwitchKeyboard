@@ -11,8 +11,9 @@ import androidx.annotation.NonNull;
 
 public class SystemKeyboardUtils {
     private View rootView;//activity的根视图
-    int rootViewVisibleHeight;//纪录根视图的显示高度
+    private int rootViewVisibleHeight;//纪录根视图的显示高度
     private OnKeyBoardListener onKeyBoardListener;
+    private boolean isRequestFocus = true;
 
     public SystemKeyboardUtils(Activity activity) {
         //获取activity的根视图
@@ -22,7 +23,18 @@ public class SystemKeyboardUtils {
         rootView.getViewTreeObserver().addOnGlobalLayoutListener(onGlobalLayoutListener);
     }
 
+    public boolean isRequestFocus() {
+        return isRequestFocus;
+    }
+
+    public void setRequestFocus(boolean requestFocus) {
+        isRequestFocus = requestFocus;
+    }
+
     private ViewTreeObserver.OnGlobalLayoutListener onGlobalLayoutListener = () -> {
+        if (isRequestFocus){
+            rootView.requestFocus();
+        }
         //获取当前根视图在屏幕上显示的大小
         Rect r = new Rect();
         rootView.getWindowVisibleDisplayFrame(r);
