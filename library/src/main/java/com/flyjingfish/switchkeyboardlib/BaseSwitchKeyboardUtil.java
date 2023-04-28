@@ -315,7 +315,6 @@ public class BaseSwitchKeyboardUtil {
                 onKeyboardMenuListener.onScrollToBottom();
             }
             keyboardIsShow = true;
-            keyboardUtils.setRequestFocus(false);
             etContent.post(() -> etContent.requestFocus());
         }
 

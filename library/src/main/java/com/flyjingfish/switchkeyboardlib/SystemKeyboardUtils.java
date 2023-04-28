@@ -23,14 +23,6 @@ public class SystemKeyboardUtils {
         rootView.getViewTreeObserver().addOnGlobalLayoutListener(onGlobalLayoutListener);
     }
 
-    public boolean isRequestFocus() {
-        return isRequestFocus;
-    }
-
-    public void setRequestFocus(boolean requestFocus) {
-        isRequestFocus = requestFocus;
-    }
-
     private ViewTreeObserver.OnGlobalLayoutListener onGlobalLayoutListener = () -> {
         if (isRequestFocus){
             rootView.requestFocus();
@@ -51,6 +43,7 @@ public class SystemKeyboardUtils {
 
         //根视图显示高度变小超过200，可以看作软键盘显示了
         if (rootViewVisibleHeight - visibleHeight > 200) {
+            isRequestFocus = false;
             if (onKeyBoardListener != null) {
                 onKeyBoardListener.onShow(rootViewVisibleHeight - visibleHeight);
             }
