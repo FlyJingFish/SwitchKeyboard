@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.flyjingfish.switchkeyboard.databinding.ActivityExample2Binding;
-import com.flyjingfish.switchkeyboardlib.BaseSwitchKeyboardUtil;
+import com.flyjingfish.switchkeyboardlib.AutoShowKeyboardType;
 import com.flyjingfish.switchkeyboardlib.MenuModeView;
 import com.flyjingfish.switchkeyboardlib.SwitchKeyboardUtil;
 
@@ -28,10 +28,11 @@ public class Example2Activity extends AppCompatActivity {
         switchKeyboardUtil = new SwitchKeyboardUtil(this);
         switchKeyboardUtil.setMenuViewHeightEqualKeyboard(true);
         switchKeyboardUtil.setUseSwitchAnim(true);
+        switchKeyboardUtil.setAutoShowKeyboard(true, AutoShowKeyboardType.FIRST_SHOW);
         switchKeyboardUtil.attachLifecycle(this);
         switchKeyboardUtil.setInputEditText(binding.etContent);
         switchKeyboardUtil.setAudioBtn(binding.tvAudio);
-        switchKeyboardUtil.setAudioTouchVIew(binding.tvAudioTouch);
+        switchKeyboardUtil.setAudioTouchView(binding.tvAudioTouch);
         switchKeyboardUtil.setMenuViewContainer(binding.llMenu);
         switchKeyboardUtil.setToggleMenuViews(new MenuModeView(binding.tvMore, binding.llMenuBtn),
                 new MenuModeView(binding.tvFace, binding.llEmoji, binding.tvFaceBack,true),

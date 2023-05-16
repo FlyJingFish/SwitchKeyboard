@@ -6,6 +6,7 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -27,7 +28,9 @@ import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleEventObserver;
 import androidx.lifecycle.LifecycleOwner;
@@ -41,6 +44,7 @@ public class BaseSwitchKeyboardUtil {
     protected View audioTouchVIew;
     protected EditText etContent;
     protected Activity activity;
+    protected LifecycleOwner lifecycleOwner;
     protected ViewGroup menuViewContainer;
     protected boolean menuViewHeightEqualKeyboard;
     protected boolean useSwitchAnim = true;
@@ -50,6 +54,8 @@ public class BaseSwitchKeyboardUtil {
     protected static final int SWITCH_ANIM_SPEED = 2;
     private View.OnTouchListener etContentOnTouchListener;
     private boolean isRecordKeyboardHeight;
+    protected boolean isAutoShowKeyboard;
+    protected AutoShowKeyboardType autoShowKeyboardType;
 
     public BaseSwitchKeyboardUtil(Activity activity) {
         this.activity = activity;
@@ -83,7 +89,7 @@ public class BaseSwitchKeyboardUtil {
      *
      * @param audioTouchVIew 语音消息按住说话按钮（可为空）
      */
-    public void setAudioTouchVIew(@Nullable View audioTouchVIew) {
+    public void setAudioTouchView(@Nullable View audioTouchVIew) {
         this.audioTouchVIew = audioTouchVIew;
     }
 
@@ -111,6 +117,28 @@ public class BaseSwitchKeyboardUtil {
         this.menuViewContainer = menuViewContainer;
     }
 
+    public boolean isAutoShowKeyboard() {
+        return isAutoShowKeyboard;
+    }
+
+    /**
+     * 设置显示页面时是否自动弹出键盘
+     * @param autoShowKeyboard 是否自动弹出键盘
+     * @param autoShowKeyboardType 自动弹出的类型，传入{@link AutoShowKeyboardType#FIRST_SHOW}则只是首次进入页面时才自动弹出键盘
+     *                             传入{@link AutoShowKeyboardType#ALWAYS_SHOW}则是每次显示页面时都会自动弹出键盘
+     */
+    public void setAutoShowKeyboard(boolean autoShowKeyboard,AutoShowKeyboardType autoShowKeyboardType) {
+        isAutoShowKeyboard = autoShowKeyboard;
+        this.autoShowKeyboardType = autoShowKeyboardType;
+    }
+    /**
+     * 设置显示页面时是否自动弹出键盘，默认首次为首次进入页面自动弹出键盘
+     * @param autoShowKeyboard 是否自动弹出键盘
+     */
+    public void setAutoShowKeyboard(boolean autoShowKeyboard) {
+        setAutoShowKeyboard(autoShowKeyboard,AutoShowKeyboardType.FIRST_SHOW);
+    }
+
     protected void saveKeyboardHeight(int value){
         SharedPreferences sp = activity.getApplication().getSharedPreferences("SwitchKeyboardData", Context.MODE_PRIVATE);
         sp.edit().putInt("KeyboardHeight", value).apply();
@@ -124,9 +152,30 @@ public class BaseSwitchKeyboardUtil {
 
     /**
      * 根据生命周期来确保不发生内存泄漏
-     * @param lifecycleOwner
+     * @param fragmentActivity View 在{@link FragmentActivity}中
      */
-    public void attachLifecycle(LifecycleOwner lifecycleOwner){
+    public void attachLifecycle(FragmentActivity fragmentActivity){
+        attachLifecycleOwner(fragmentActivity);
+    }
+
+    /**
+     * 根据生命周期来确保不发生内存泄漏
+     * @param fragment View 在{@link Fragment}中
+     */
+    public void attachLifecycle(Fragment fragment){
+        attachLifecycleOwner(fragment);
+    }
+
+    /**
+     * 根据生命周期来确保不发生内存泄漏
+     * @param dialogFragment View 在{@link DialogFragment}中
+     */
+    public void attachLifecycle(DialogFragment dialogFragment){
+        attachLifecycleOwner(dialogFragment);
+    }
+
+    protected void attachLifecycleOwner(LifecycleOwner lifecycleOwner){
+        this.lifecycleOwner = lifecycleOwner;
         if (lifecycleOwner instanceof Fragment){
             lifecycleOwner = ((Fragment) lifecycleOwner).getViewLifecycleOwner();
         }
@@ -149,7 +198,15 @@ public class BaseSwitchKeyboardUtil {
         keyboardUtils = new SystemKeyboardUtils(activity);
         keyboardUtils.setOnKeyBoardListener(onKeyBoardListener);
         setSystemUi();
-        checkSoftMode();
+
+        if (lifecycleOwner instanceof DialogFragment){
+            Dialog dialog = ((DialogFragment) lifecycleOwner).requireDialog();
+            setSystemUi(dialog.getWindow());
+            checkSoftMode(activity.getWindow(),false);
+            checkSoftMode(dialog.getWindow(),isAutoShowKeyboard);
+        }else {
+            checkSoftMode(activity.getWindow(),isAutoShowKeyboard);
+        }
         int menuHeight = getKeyboardHeight();
         if (menuViewHeightEqualKeyboard){
             ViewGroup.LayoutParams layoutParams = menuViewContainer.getLayoutParams();
@@ -255,10 +312,13 @@ public class BaseSwitchKeyboardUtil {
     }
 
     public void setSystemUi(){
-        Window window = activity.getWindow();
+        setSystemUi(activity.getWindow());
+    }
+
+    public void setSystemUi(Window window){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+//            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(Color.TRANSPARENT);
             int flag = window.getDecorView().getSystemUiVisibility();
             window.getDecorView().setSystemUiVisibility(flag | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
@@ -404,7 +464,10 @@ public class BaseSwitchKeyboardUtil {
     }
 
     public void checkSoftMode(){
-        Window window = activity.getWindow();
+        checkSoftMode(activity.getWindow(),false);
+    }
+
+    public void checkSoftMode(Window window,boolean isSetAutoShowKeyboardFlag){
         final WindowManager.LayoutParams attrs = window.getAttributes();
         int softMode = attrs.softInputMode;
         if (((softMode | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING) == softMode)
@@ -427,7 +490,15 @@ public class BaseSwitchKeyboardUtil {
                 newSoftMode |= WindowManager.LayoutParams.SOFT_INPUT_STATE_UNCHANGED;
             }
             attrs.softInputMode = newSoftMode|WindowManager.LayoutParams.SOFT_INPUT_ADJUST_UNSPECIFIED;
+            if (isSetAutoShowKeyboardFlag){
+                attrs.softInputMode = attrs.softInputMode|((lifecycleOwner instanceof DialogFragment)?WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE:(autoShowKeyboardType == AutoShowKeyboardType.ALWAYS_SHOW?WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE:WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE));
+            }
             window.setAttributes(attrs);
+        }else {
+            if (isSetAutoShowKeyboardFlag){
+                attrs.softInputMode = softMode|((lifecycleOwner instanceof DialogFragment)?WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE:(autoShowKeyboardType == AutoShowKeyboardType.ALWAYS_SHOW?WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE:WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE));
+                window.setAttributes(attrs);
+            }
         }
     }
 

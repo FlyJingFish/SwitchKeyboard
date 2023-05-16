@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
         binding.example1.setOnClickListener(v -> startActivity(new Intent(this, Example1Activity.class)));
         binding.example2.setOnClickListener(v -> startActivity(new Intent(this, Example2Activity.class)));
         binding.example3.setOnClickListener(v -> startActivity(new Intent(this, Example3Activity.class)));
+        binding.example4.setOnClickListener(v -> startActivity(new Intent(this, ExampleDialogActivity.class)));
     }
 
     @Override

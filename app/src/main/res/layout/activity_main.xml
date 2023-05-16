@@ -7,45 +7,59 @@
     tools:context=".MainActivity">
 
 
-
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:gravity="center"
         android:orientation="vertical">
+
         <TextView
             android:id="@+id/example1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAllCaps="false"
-            android:paddingHorizontal="10dp"
-            android:paddingVertical="10dp"
-            android:textColor="@color/white"
             android:layout_marginTop="10dp"
             android:background="@drawable/bg_hollow2"
-            android:text="example1"/>
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="10dp"
+            android:text="example1"
+            android:textAllCaps="false"
+            android:textColor="@color/white" />
+
         <TextView
             android:id="@+id/example2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAllCaps="false"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_hollow2"
             android:paddingHorizontal="10dp"
             android:paddingVertical="10dp"
-            android:layout_marginTop="10dp"
-            android:textColor="@color/white"
-            android:background="@drawable/bg_hollow2"
-            android:text="example2"/>
+            android:text="example2"
+            android:textAllCaps="false"
+            android:textColor="@color/white" />
+
         <TextView
             android:id="@+id/example3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAllCaps="false"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_hollow2"
             android:paddingHorizontal="10dp"
             android:paddingVertical="10dp"
+            android:text="在 Fragment 中使用"
+            android:textAllCaps="false"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/example4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:textColor="@color/white"
             android:background="@drawable/bg_hollow2"
-            android:text="在 Fragment 中使用"/>
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="10dp"
+            android:text="在 DialogFragment 中使用"
+            android:textAllCaps="false"
+            android:textColor="@color/white" />
     </LinearLayout>
 </RelativeLayout>

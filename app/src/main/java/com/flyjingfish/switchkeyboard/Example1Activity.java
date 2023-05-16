@@ -33,7 +33,7 @@ public class Example1Activity extends AppCompatActivity {
         switchKeyboardUtil.attachLifecycle(this);
         switchKeyboardUtil.setInputEditText(binding.etContent);
         switchKeyboardUtil.setAudioBtn(binding.tvAudio);
-        switchKeyboardUtil.setAudioTouchVIew(binding.tvAudioTouch);
+        switchKeyboardUtil.setAudioTouchView(binding.tvAudioTouch);
         switchKeyboardUtil.setMenuViewContainer(binding.llMenu);
         switchKeyboardUtil.setToggleMenuViews(new MenuModeView(binding.tvMore,binding.llMenuBtn),
                 new MenuModeView(binding.ivFace,binding.llEmoji),

@@ -36,6 +36,10 @@
             android:name="com.flyjingfish.switchkeyboard.Example3Activity"
             android:exported="true">
         </activity>
+        <activity
+            android:name="com.flyjingfish.switchkeyboard.ExampleDialogActivity"
+            android:exported="true">
+        </activity>
     </application>
 
 </manifest>

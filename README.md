@@ -29,7 +29,7 @@
 
 ```gradle
     dependencies {
-        implementation 'com.github.FlyJingFish:SwitchKeyboard:1.2.0'
+        implementation 'com.github.FlyJingFish:SwitchKeyboard:1.2.1'
     }
 ```
 ## 第三步，使用说明
@@ -129,6 +129,8 @@ public class Example2Activity extends AppCompatActivity {
         switchKeyboardUtil.setAudioTouchVIew(tvAudioTouch);
         //存放所有菜单的布局（必须设置）
         switchKeyboardUtil.setMenuViewContainer(llMenu);
+        //进入页面时是否自动弹出键盘
+        switchKeyboardUtil.setAutoShowKeyboard(true, AutoShowKeyboardType.FIRST_SHOW);
         //设置切换菜单的切换按钮和菜单布局（不必设置）
         switchKeyboardUtil.setToggleMenuViews(
                 new MenuModeView(tvMore,llMenuBtn),
@@ -245,9 +247,9 @@ public class Example2Activity extends AppCompatActivity {
 
 ## 关于打开页面时键盘的状态
 
-1、有些机型会自动打开键盘，可设置 windowSoftInputMode 模式来解决，例如你不希望打开键盘就可以设置 stateAlwaysHidden 或 stateHidden
+1、如果想自动弹出键盘，可通过设置**switchKeyboardUtil.setAutoShowKeyboard()** 或者如果是Activity您可在 AndroidManifest.xml 中设置 windowSoftInputMode 为 stateAlwaysVisible 或 stateVisible
 
-2、如果想自动弹出键盘，可设置 windowSoftInputMode 为 stateAlwaysVisible 或 stateVisible
+2、有些机型会自动打开键盘，可设置 windowSoftInputMode 模式来解决，例如你不希望打开键盘就可以设置 stateAlwaysHidden 或 stateHidden
 
 
 # 最后推荐我写的另一个库，轻松实现在应用内点击小图查看大图的动画放大效果
