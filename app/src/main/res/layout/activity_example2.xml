@@ -45,8 +45,6 @@
                 android:paddingHorizontal="13dp"
                 android:paddingVertical="13dp"
                 android:gravity="center_vertical"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
                 android:background="@drawable/bg_edit_person_info"
                 android:orientation="horizontal">
                 <ImageView
