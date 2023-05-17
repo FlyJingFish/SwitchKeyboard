@@ -75,14 +75,11 @@ public class Example2Activity extends AppCompatActivity {
             }
         });
 
-        binding.rv.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_DOWN){
-                    switchKeyboardUtil.hideMenuAndKeyboard();
-                }
-                return false;
+        binding.rv.setOnTouchListener((v, event) -> {
+            if (event.getAction() == MotionEvent.ACTION_DOWN){
+                switchKeyboardUtil.hideMenuAndKeyboard();
             }
+            return false;
         });
 
         List<String> msgList = new ArrayList<>();
@@ -93,20 +90,9 @@ public class Example2Activity extends AppCompatActivity {
         binding.rv.setAdapter(msgAdapter);
         binding.rv.setLayoutManager(new LinearLayoutManager(this));
 
-        binding.rv.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
-            @Override
-            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
-                scrollToBottom();
+        binding.rv.addOnLayoutChangeListener((v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> scrollToBottom());
 
-            }
-        });
-
-        binding.rv.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                scrollToBottom();
-            }
-        },200);
+        binding.rv.postDelayed(() -> scrollToBottom(),200);
     }
 
 
