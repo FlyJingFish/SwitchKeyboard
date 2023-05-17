@@ -232,6 +232,8 @@ public class Example2Activity extends AppCompatActivity {
 
 3、如果**在Fragment中使用** 详情可看[Example3Activity](https://github.com/FlyJingFish/SwitchKeyboard/blob/master/app/src/main/java/com/flyjingfish/switchkeyboard/Example3Activity.java) 对应Fragment [Example3Fragment](https://github.com/FlyJingFish/SwitchKeyboard/blob/master/app/src/main/java/com/flyjingfish/switchkeyboard/Example3Fragment.java)
 
+4、如果**在DialogFragment中使用** 详情可看[ExampleDialogActivity](https://github.com/FlyJingFish/SwitchKeyboard/blob/master/app/src/main/java/com/flyjingfish/switchkeyboard/ExampleDialogActivity.java) 对应DialogFragment [InputDialog](https://github.com/FlyJingFish/SwitchKeyboard/blob/master/app/src/main/java/com/flyjingfish/switchkeyboard/dialog/InputDialog.java)
+
 
 
 ## 特别注意(如果不注意的话可能会显示异常)
