@@ -1,16 +1,10 @@
 package com.flyjingfish.switchkeyboard;
 
 import android.os.Bundle;
-import android.view.KeyEvent;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentTransaction;
 
-import com.flyjingfish.switchkeyboard.databinding.ActivityExample2Binding;
 import com.flyjingfish.switchkeyboard.databinding.ActivityExampleDialogBinding;
-import com.flyjingfish.switchkeyboard.dialog.BaseInputDialog;
-import com.flyjingfish.switchkeyboard.dialog.InputDialog;
-import com.flyjingfish.switchkeyboardlib.SwitchKeyboardUtil;
 
 public class ExampleDialogActivity extends AppCompatActivity {
     private ActivityExampleDialogBinding binding;
@@ -23,7 +17,7 @@ public class ExampleDialogActivity extends AppCompatActivity {
         StatusBarHelper.transparencyBar(this);
         binding.llMsgContent.setOnClickListener(v -> {
             InputDialog inputDialog = InputDialog.getDialog(binding.etContent.getText().toString());
-            inputDialog.setOnContentCallBack(new BaseInputDialog.OnContentCallBack() {
+            inputDialog.setOnContentCallBack(new InputDialog.OnContentCallBack() {
                 @Override
                 public void onSendContent(String content) {
 
