@@ -17,8 +17,8 @@ public class ExampleDialogActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         //请注意这块也是必须做的，不然首次打开DialogFragment时你会看到状态栏被改变了
-        SwitchKeyboardUtil switchKeyboardUtil = new SwitchKeyboardUtil(this);
-        switchKeyboardUtil.setSystemUi();
+        //当然如果你已经给你的 Activity 设置了透明状态栏，这句是可以忽略掉的
+        new SwitchKeyboardUtil(this).setSystemUi();
 
         binding.llMsgContent.setOnClickListener(v -> {
             InputDialog inputDialog = InputDialog.getDialog(binding.etContent.getText().toString());
