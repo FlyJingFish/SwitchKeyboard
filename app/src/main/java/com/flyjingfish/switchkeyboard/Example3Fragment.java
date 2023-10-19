@@ -24,7 +24,7 @@ public class Example3Fragment extends Fragment {
 
     private com.flyjingfish.switchkeyboard.databinding.ActivityExample1Binding binding;
     private SwitchKeyboardUtil switchKeyboardUtil;
-
+    private boolean dark;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -94,7 +94,11 @@ public class Example3Fragment extends Fragment {
             }
             return false;
         });
-        binding.tvVideo.setOnClickListener(v -> Toast.makeText(requireActivity(),"去视频通话",Toast.LENGTH_SHORT).show());
+        binding.tvVideo.setOnClickListener(v -> {
+            dark = !dark;
+            StatusBarHelper.setLightStatusBar(requireActivity(),dark,false);
+//            Toast.makeText(requireActivity(),"去视频通话",Toast.LENGTH_SHORT).show()
+        });
         List<String> msgList = new ArrayList<>();
         for (int i = 0; i < 60; i++) {
             msgList.add("item="+i);

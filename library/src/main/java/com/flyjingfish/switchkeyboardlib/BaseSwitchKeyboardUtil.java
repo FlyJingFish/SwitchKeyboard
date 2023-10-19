@@ -18,7 +18,9 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.Window;
+import android.view.WindowInsets;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -28,6 +30,7 @@ import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -55,6 +58,7 @@ public class BaseSwitchKeyboardUtil {
     private View.OnTouchListener etContentOnTouchListener;
     private boolean isRecordKeyboardHeight;
     protected boolean isAutoShowKeyboard;
+    protected boolean isAutoSetFitsSystemWindowsFalse = true;
     protected AutoShowKeyboardType autoShowKeyboardType;
 
     public BaseSwitchKeyboardUtil(Activity activity) {
@@ -139,6 +143,14 @@ public class BaseSwitchKeyboardUtil {
         setAutoShowKeyboard(autoShowKeyboard,AutoShowKeyboardType.FIRST_SHOW);
     }
 
+    /**
+     * 是否自动设置菜单栏及其父布局 {@link View#setFitsSystemWindows} 为 false （默认自动设置）
+     * @param autoSetFitsSystemWindowsFalse false为不自动设置，如果您布局中存在 fitsSystemWindows 为true 的情况，这将导致显示不正常。此项默认为true
+     */
+    public void setAutoSetFitsSystemWindowsFalse(boolean autoSetFitsSystemWindowsFalse) {
+        isAutoSetFitsSystemWindowsFalse = autoSetFitsSystemWindowsFalse;
+    }
+
     protected void saveKeyboardHeight(int value){
         SharedPreferences sp = activity.getApplication().getSharedPreferences("SwitchKeyboardData", Context.MODE_PRIVATE);
         sp.edit().putInt("KeyboardHeight", value).apply();
@@ -197,8 +209,13 @@ public class BaseSwitchKeyboardUtil {
     protected void onCreate(@NonNull LifecycleOwner owner){
         keyboardUtils = new SystemKeyboardUtils(activity);
         keyboardUtils.setOnKeyBoardListener(onKeyBoardListener);
-        setSystemUi();
 
+        if (isAutoSetFitsSystemWindowsFalse){
+            setFitsSystemWindows(etContent);
+            setFitsSystemWindows(menuViewContainer);
+        }
+
+        setSystemUi(activity.getWindow());
         if (lifecycleOwner instanceof DialogFragment){
             Dialog dialog = ((DialogFragment) lifecycleOwner).requireDialog();
             setSystemUi(dialog.getWindow());
@@ -264,6 +281,63 @@ public class BaseSwitchKeyboardUtil {
             }
             return false;
         });
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT_WATCH) {
+            Window window;
+            if (lifecycleOwner instanceof DialogFragment){
+                Dialog dialog = ((DialogFragment) lifecycleOwner).requireDialog();
+                window = dialog.getWindow();
+            }else {
+                window = activity.getWindow();
+            }
+            SystemUiVisibilityListener listener = new SystemUiVisibilityListener();
+            window.getDecorView().setOnApplyWindowInsetsListener(listener);
+            window.getDecorView().getViewTreeObserver().addOnGlobalLayoutListener(listener);
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT_WATCH)
+    private class SystemUiVisibilityListener implements View.OnApplyWindowInsetsListener,ViewTreeObserver.OnGlobalLayoutListener {
+        private int lastFlag;
+        private int lastHeight;
+        @Override
+        public WindowInsets onApplyWindowInsets(View v, WindowInsets insets) {
+            if (!hasFullScreenFlag()){
+                if (keyboardIsShow){
+                    ViewGroup.LayoutParams layoutParams = menuViewContainer.getLayoutParams();
+                    lastHeight = layoutParams.height;
+                    layoutParams.height = 0;
+                    menuViewContainer.setLayoutParams(layoutParams);
+//                    menuViewContainer.setVisibility(View.GONE);
+                }
+            }
+            return v.onApplyWindowInsets(insets);
+        }
+
+        @Override
+        public void onGlobalLayout() {
+            Window window;
+            if (lifecycleOwner instanceof DialogFragment){
+                Dialog dialog = ((DialogFragment) lifecycleOwner).requireDialog();
+                window = dialog.getWindow();
+            }else {
+                window = activity.getWindow();
+            }
+            int flag = window.getDecorView().getSystemUiVisibility();
+            if (!hasFullScreenFlag()){
+                setSystemUi(window);
+            }
+            if (!hasFullScreenFlag(lastFlag)){
+                if (keyboardIsShow){
+                    ViewGroup.LayoutParams layoutParams = menuViewContainer.getLayoutParams();
+                    layoutParams.height = lastHeight;
+                    menuViewContainer.setLayoutParams(layoutParams);
+//                    handler.postDelayed(() -> menuViewContainer.setVisibility(View.VISIBLE),150);
+                }else {
+                    menuViewContainer.requestLayout();
+                }
+            }
+            lastFlag = flag;
+        }
     }
 
     protected void onDestroy(@NonNull LifecycleOwner owner){
@@ -312,7 +386,14 @@ public class BaseSwitchKeyboardUtil {
     }
 
     public void setSystemUi(){
-        setSystemUi(activity.getWindow());
+        Window window;
+        if (lifecycleOwner instanceof DialogFragment){
+            Dialog dialog = ((DialogFragment) lifecycleOwner).requireDialog();
+            window = dialog.getWindow();
+        }else {
+            window = activity.getWindow();
+        }
+        setSystemUi(window);
     }
 
     public void setSystemUi(Window window){
@@ -326,6 +407,29 @@ public class BaseSwitchKeyboardUtil {
         } else {
             window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
                     WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        }
+    }
+
+    private boolean hasFullScreenFlag(){
+        Window window;
+        if (lifecycleOwner instanceof DialogFragment){
+            Dialog dialog = ((DialogFragment) lifecycleOwner).requireDialog();
+            window = dialog.getWindow();
+        }else {
+            window = activity.getWindow();
+        }
+        int flag = window.getDecorView().getSystemUiVisibility();
+        return hasFullScreenFlag(flag);
+    }
+
+    private boolean hasFullScreenFlag(int flag){
+        return (flag & View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN) == View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
+    }
+
+    private void setFitsSystemWindows(View view){
+        view.setFitsSystemWindows(false);
+        if (view.getParent() instanceof ViewGroup && ((ViewGroup) view.getParent()).getId() != Window.ID_ANDROID_CONTENT){
+            setFitsSystemWindows((View) view.getParent());
         }
     }
 
@@ -470,25 +574,15 @@ public class BaseSwitchKeyboardUtil {
     public void checkSoftMode(Window window,boolean isSetAutoShowKeyboardFlag){
         final WindowManager.LayoutParams attrs = window.getAttributes();
         int softMode = attrs.softInputMode;
-        if (((softMode | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING) == softMode)
-                ||((softMode | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN) == softMode)
-                ||((softMode | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE) == softMode)){
-            int newSoftMode = WindowManager.LayoutParams.SOFT_INPUT_STATE_UNSPECIFIED;
-            if ((softMode | WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN) == softMode){
-                newSoftMode |= WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN;
-            }
-            if ((softMode | WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN) == softMode){
-                newSoftMode |= WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN;
-            }
-            if ((softMode | WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE) == softMode){
-                newSoftMode |= WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE;
-            }
-            if ((softMode | WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE) == softMode){
-                newSoftMode |= WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE;
-            }
-            if ((softMode | WindowManager.LayoutParams.SOFT_INPUT_STATE_UNCHANGED) == softMode){
-                newSoftMode |= WindowManager.LayoutParams.SOFT_INPUT_STATE_UNCHANGED;
-            }
+
+        if (((softMode & WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING) == WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
+                ||((softMode & WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN) == WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
+                ||((softMode & WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE) == WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)){
+
+            int newSoftMode = softMode;
+            newSoftMode &= ~WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING;
+            newSoftMode &= ~WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN;
+            newSoftMode &= ~WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE;
             attrs.softInputMode = newSoftMode|WindowManager.LayoutParams.SOFT_INPUT_ADJUST_UNSPECIFIED;
             if (isSetAutoShowKeyboardFlag){
                 attrs.softInputMode = attrs.softInputMode|((lifecycleOwner instanceof DialogFragment)?WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE:(autoShowKeyboardType == AutoShowKeyboardType.ALWAYS_SHOW?WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE:WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE));

@@ -16,11 +16,10 @@ import com.flyjingfish.switchkeyboardlib.SwitchKeyboardUtil;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Example1Activity extends AppCompatActivity {
+public class Example1Activity extends BaseActivity {
     private SwitchKeyboardUtil switchKeyboardUtil;
     private ActivityExample1Binding binding;
-
-
+    private boolean dark;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,7 +84,13 @@ public class Example1Activity extends AppCompatActivity {
             }
             return false;
         });
-        binding.tvVideo.setOnClickListener(v -> Toast.makeText(this,"去视频通话",Toast.LENGTH_SHORT).show());
+
+        binding.tvVideo.setOnClickListener(v -> {
+//            Toast.makeText(this,"去视频通话",Toast.LENGTH_SHORT).show()
+            dark = !dark;
+            StatusBarHelper.setLightStatusBar(this,dark,false);
+            switchKeyboardUtil.setSystemUi();
+        });
         List<String> msgList = new ArrayList<>();
         for (int i = 0; i < 60; i++) {
             msgList.add("item="+i);

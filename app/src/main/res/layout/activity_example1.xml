@@ -6,18 +6,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MainActivity">
-    <TextView
-        android:id="@+id/v_status"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:textColor="@color/white"
-        android:text="Title"
-        android:gravity="center"
-        android:background="@color/black"/>
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/v_status">
+        android:layout_height="match_parent">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -163,7 +154,7 @@
                         android:gravity="center"
                         android:paddingHorizontal="16dp"
                         android:layout_marginStart="10dp"
-                        android:text="视频"
+                        android:text="状态栏"
                         android:textColor="@color/white"
                         android:background="@drawable/bg_send_person_info"
                         android:textSize="13sp" />

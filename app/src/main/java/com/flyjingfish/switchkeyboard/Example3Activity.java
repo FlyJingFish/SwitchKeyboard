@@ -4,14 +4,20 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.flyjingfish.switchkeyboard.databinding.ActivityExample3Binding;
 import com.flyjingfish.switchkeyboardlib.SwitchKeyboardUtil;
 
-public class Example3Activity extends AppCompatActivity {
+public class Example3Activity extends BaseActivity {
     private ActivityExample3Binding binding;
     private Example3Fragment example3Fragment;
+
+    @Override
+    public String getTitleString() {
+        return Fragment.class.getSimpleName();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

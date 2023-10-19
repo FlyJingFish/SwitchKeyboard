@@ -244,8 +244,9 @@ public class Example2Activity extends AppCompatActivity {
 
 （正常来说如果你在onCreate 中设置过一次字体颜色是没有问题的，但如果在其他地方还有设置字体颜色是有可能影响的,原因是你切换字体颜色的代码影响了原本的设置）
 
-2、布局中不可使用 fitsSystemWindows 属性为true
+2、布局中不可使用 fitsSystemWindows 属性为true，本库目前已将布局中影响较为大的几个节点自动设置为了false
 
+**PS:** 如果你非要设置 fitsSystemWindows 将会导致显示异常，所以请尽可能的不要使用这个属性
 
 ## 关于打开页面时键盘的状态
 

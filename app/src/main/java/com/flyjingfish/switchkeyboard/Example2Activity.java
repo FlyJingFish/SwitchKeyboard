@@ -16,7 +16,7 @@ import com.flyjingfish.switchkeyboardlib.SwitchKeyboardUtil;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Example2Activity extends AppCompatActivity {
+public class Example2Activity extends BaseActivity {
     private SwitchKeyboardUtil switchKeyboardUtil;
     private ActivityExample2Binding binding;
 

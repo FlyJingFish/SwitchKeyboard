@@ -3,12 +3,18 @@ package com.flyjingfish.switchkeyboard;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
 import com.flyjingfish.switchkeyboard.databinding.ActivityExampleDialogBinding;
 import com.flyjingfish.switchkeyboardlib.SwitchKeyboardUtil;
 
-public class ExampleDialogActivity extends AppCompatActivity {
+public class ExampleDialogActivity extends BaseActivity {
     private ActivityExampleDialogBinding binding;
+
+    @Override
+    public String getTitleString() {
+        return DialogFragment.class.getSimpleName();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -1,6 +1,7 @@
 package com.flyjingfish.switchkeyboard;
 
 import android.app.Dialog;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -18,6 +19,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.flyjingfish.switchkeyboard.databinding.DialogInputBinding;
+import com.flyjingfish.switchkeyboardlib.BaseSwitchKeyboardUtil;
 import com.flyjingfish.switchkeyboardlib.MenuModeView;
 import com.flyjingfish.switchkeyboardlib.SwitchKeyboardUtil;
 
@@ -29,7 +31,6 @@ public class InputDialog extends DialogFragment {
     private boolean isShowMenu;
     protected OnContentCallBack onContentCallBack;
     private com.flyjingfish.switchkeyboard.databinding.DialogInputBinding binding;
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
