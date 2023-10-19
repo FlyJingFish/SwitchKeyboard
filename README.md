@@ -238,7 +238,7 @@ public class Example2Activity extends AppCompatActivity {
 
 ## 特别注意(如果不注意的话可能会显示异常)
 
-1、本工具类设置了布局全屏显示,并设置了透明状态栏，请自行适配顶部返回键一栏距离顶部的距离和状态栏字体颜色
+1、本工具类设置了布局全屏显示,并设置了透明状态栏，请自行适配顶部返回键一栏距离顶部的距离（可搭配使用[TitleBar](https://github.com/FlyJingFish/TitleBar),使用教程看[BaseActivity](https://github.com/FlyJingFish/SwitchKeyboard/blob/master/app/src/main/java/com/flyjingfish/switchkeyboard/BaseActivity.java)）和状态栏字体颜色
 
 **PS:** 如果你设置状态栏字体颜色后出现问题，可在你的代码后**再次调用 setSystemUi() 来修正**
 
