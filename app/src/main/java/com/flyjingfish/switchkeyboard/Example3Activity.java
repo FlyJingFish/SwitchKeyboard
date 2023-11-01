@@ -24,6 +24,7 @@ public class Example3Activity extends BaseActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityExample3Binding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        new SwitchKeyboardUtil(this).setSystemUi();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         example3Fragment = new Example3Fragment();
         transaction.replace(R.id.container, example3Fragment).commitAllowingStateLoss();
