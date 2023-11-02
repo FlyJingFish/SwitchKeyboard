@@ -6,6 +6,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Lifecycle;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.flyjingfish.switchkeyboard.databinding.ActivityExample2Binding;
@@ -111,7 +112,9 @@ public class Example2Activity extends BaseActivity {
 
     private void scrollToBottom() {
 //        if (!binding.rv.canScrollVertically(1)){
-        binding.rv.scrollToPosition(binding.rv.getAdapter().getItemCount() - 1);
+        if (getLifecycle().getCurrentState() == Lifecycle.State.RESUMED && binding.rv.getAdapter() != null){
+            binding.rv.scrollToPosition(binding.rv.getAdapter().getItemCount() - 1);
+        }
 //        }
     }
 }

@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Lifecycle;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.flyjingfish.switchkeyboard.databinding.ActivityExample1Binding;
@@ -113,7 +114,9 @@ public class Example3Fragment extends Fragment {
     }
 
     private void scrollToBottom() {
-        binding.rv.scrollToPosition(binding.rv.getAdapter().getItemCount() - 1);
+        if (getLifecycle().getCurrentState() == Lifecycle.State.RESUMED && binding.rv.getAdapter() != null){
+            binding.rv.scrollToPosition(binding.rv.getAdapter().getItemCount() - 1);
+        }
     }
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
