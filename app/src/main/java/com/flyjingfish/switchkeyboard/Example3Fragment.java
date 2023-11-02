@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Lifecycle;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.flyjingfish.switchkeyboard.databinding.ActivityExample1Binding;
 import com.flyjingfish.switchkeyboardlib.MenuModeView;
@@ -108,8 +109,18 @@ public class Example3Fragment extends Fragment {
         binding.rv.setAdapter(msgAdapter);
         binding.rv.setLayoutManager(new LinearLayoutManager(requireActivity()));
 
-        binding.rv.addOnLayoutChangeListener((v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> scrollToBottom());
-
+        View.OnLayoutChangeListener onLayoutChangeListener = (v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> scrollToBottom();
+        binding.rv.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (newState != RecyclerView.SCROLL_STATE_IDLE){
+                    binding.rv.removeOnLayoutChangeListener(onLayoutChangeListener);
+                }else {
+                    binding.rv.addOnLayoutChangeListener(onLayoutChangeListener);
+                }
+            }
+        });
         binding.rv.postDelayed(() -> scrollToBottom(),200);
     }
 

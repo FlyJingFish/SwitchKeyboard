@@ -200,10 +200,16 @@ public class Example2Activity extends AppCompatActivity {
             }
         });
         //这个是保持消息平滑移动的关键
-        recyclerView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+        View.OnLayoutChangeListener onLayoutChangeListener = (v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> scrollToBottom();
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
-            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
-                scrollToBottom();
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (newState != RecyclerView.SCROLL_STATE_IDLE){
+                    recyclerView.removeOnLayoutChangeListener(onLayoutChangeListener);
+                }else {
+                    recyclerView.addOnLayoutChangeListener(onLayoutChangeListener);
+                }
             }
         });
     }

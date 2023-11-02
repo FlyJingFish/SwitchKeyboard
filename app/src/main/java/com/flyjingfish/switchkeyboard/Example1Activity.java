@@ -6,9 +6,11 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Lifecycle;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.flyjingfish.switchkeyboard.databinding.ActivityExample1Binding;
 import com.flyjingfish.switchkeyboardlib.MenuModeView;
@@ -100,15 +102,25 @@ public class Example1Activity extends BaseActivity {
         binding.rv.setAdapter(msgAdapter);
         binding.rv.setLayoutManager(new LinearLayoutManager(this));
 
-        binding.rv.addOnLayoutChangeListener((v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> scrollToBottom());
-
+        View.OnLayoutChangeListener onLayoutChangeListener = (v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> scrollToBottom();
+        binding.rv.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (newState != RecyclerView.SCROLL_STATE_IDLE){
+                    binding.rv.removeOnLayoutChangeListener(onLayoutChangeListener);
+                }else {
+                    binding.rv.addOnLayoutChangeListener(onLayoutChangeListener);
+                }
+            }
+        });
         binding.rv.postDelayed(() -> scrollToBottom(),200);
     }
 
 
     private void scrollToBottom() {
 //        if (!binding.rv.canScrollVertically(1)){
-        if (getLifecycle().getCurrentState() == Lifecycle.State.RESUMED && binding.rv.getAdapter() != null){
+        if (getCurrentState() == Lifecycle.State.RESUMED && binding.rv.getAdapter() != null){
             binding.rv.scrollToPosition(binding.rv.getAdapter().getItemCount() - 1);
         }
 //        }
