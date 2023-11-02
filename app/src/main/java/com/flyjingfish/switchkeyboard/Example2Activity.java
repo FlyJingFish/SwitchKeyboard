@@ -124,7 +124,7 @@ public class Example2Activity extends BaseActivity {
 
     private void scrollToBottom() {
 //        if (!binding.rv.canScrollVertically(1)){
-        if (getCurrentState() == Lifecycle.State.RESUMED && binding.rv.getAdapter() != null){
+        if (getLifecycle().getCurrentState() == Lifecycle.State.RESUMED && binding.rv.getAdapter() != null){
             binding.rv.scrollToPosition(binding.rv.getAdapter().getItemCount() - 1);
         }
 //        }
