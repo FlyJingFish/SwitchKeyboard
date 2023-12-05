@@ -261,9 +261,11 @@ public class Example2Activity extends AppCompatActivity {
 2、有些机型会自动打开键盘，可设置 windowSoftInputMode 模式来解决，例如你不希望打开键盘就可以设置 stateAlwaysHidden 或 stateHidden
 
 
-# 最后推荐我写的另一个库，轻松实现在应用内点击小图查看大图的动画放大效果
+## 最后推荐我写的另外一些库
 
-- [OpenImage](https://github.com/FlyJingFish/OpenImage) 
+- [OpenImage 轻松实现在应用内点击小图查看大图的动画放大效果](https://github.com/FlyJingFish/OpenImage)
+
+- [AndroidAOP 一个注解就可请求权限，禁止多点，切换线程等等](https://github.com/FlyJingFish/AndroidAOP)
 
 - [主页查看更多开源库](https://github.com/FlyJingFish)
 
