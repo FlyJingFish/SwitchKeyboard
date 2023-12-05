@@ -265,7 +265,7 @@ public class Example2Activity extends AppCompatActivity {
 
 - [OpenImage 轻松实现在应用内点击小图查看大图的动画放大效果](https://github.com/FlyJingFish/OpenImage)
 
-- [AndroidAOP 一个注解就可请求权限，禁止多点，切换线程等等](https://github.com/FlyJingFish/AndroidAOP)
+- [AndroidAOP 一个注解就可请求权限，禁止多点，切换线程等等，更可定制出属于你的 Aop 代码](https://github.com/FlyJingFish/AndroidAOP)
 
 - [主页查看更多开源库](https://github.com/FlyJingFish)
 
