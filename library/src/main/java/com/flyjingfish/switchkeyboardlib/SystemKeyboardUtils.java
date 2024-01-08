@@ -15,10 +15,18 @@ public class SystemKeyboardUtils {
     private OnKeyBoardListener onKeyBoardListener;
     private boolean isRequestFocus = true;
 
-    public SystemKeyboardUtils(Activity activity) {
+    public SystemKeyboardUtils(Activity activity,boolean isDialogFragment) {
         //获取activity的根视图
         rootView = activity.getWindow().getDecorView();
-
+        //获取当前根视图在屏幕上显示的大小
+        if (isDialogFragment){
+            Rect r = new Rect();
+            rootView.getWindowVisibleDisplayFrame(r);
+            int visibleHeight = r.height();
+            if (visibleHeight > 0){
+                rootViewVisibleHeight = visibleHeight;
+            }
+        }
         //监听视图树中全局布局发生改变或者视图树中的某个视图的可视状态发生改变
         rootView.getViewTreeObserver().addOnGlobalLayoutListener(onGlobalLayoutListener);
     }

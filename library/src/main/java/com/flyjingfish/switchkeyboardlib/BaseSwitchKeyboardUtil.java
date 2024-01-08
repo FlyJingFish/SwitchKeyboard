@@ -207,7 +207,7 @@ public class BaseSwitchKeyboardUtil {
 
     @SuppressLint("ClickableViewAccessibility")
     protected void onCreate(@NonNull LifecycleOwner owner){
-        keyboardUtils = new SystemKeyboardUtils(activity);
+        keyboardUtils = new SystemKeyboardUtils(activity,lifecycleOwner instanceof DialogFragment);
         keyboardUtils.setOnKeyBoardListener(onKeyBoardListener);
 
         if (isAutoSetFitsSystemWindowsFalse){
