@@ -281,21 +281,18 @@ public class BaseSwitchKeyboardUtil {
             }
             return false;
         });
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT_WATCH) {
-            Window window;
-            if (lifecycleOwner instanceof DialogFragment){
-                Dialog dialog = ((DialogFragment) lifecycleOwner).requireDialog();
-                window = dialog.getWindow();
-            }else {
-                window = activity.getWindow();
-            }
-            SystemUiVisibilityListener listener = new SystemUiVisibilityListener();
-            window.getDecorView().setOnApplyWindowInsetsListener(listener);
-            window.getDecorView().getViewTreeObserver().addOnGlobalLayoutListener(listener);
+        Window window;
+        if (lifecycleOwner instanceof DialogFragment){
+            Dialog dialog = ((DialogFragment) lifecycleOwner).requireDialog();
+            window = dialog.getWindow();
+        }else {
+            window = activity.getWindow();
         }
+        SystemUiVisibilityListener listener = new SystemUiVisibilityListener();
+        window.getDecorView().setOnApplyWindowInsetsListener(listener);
+        window.getDecorView().getViewTreeObserver().addOnGlobalLayoutListener(listener);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT_WATCH)
     private class SystemUiVisibilityListener implements View.OnApplyWindowInsetsListener,ViewTreeObserver.OnGlobalLayoutListener {
         private int lastFlag;
         private int lastHeight;
