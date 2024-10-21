@@ -230,13 +230,7 @@ public class Example2Activity extends AppCompatActivity {
 }
 ```
 
-## 混淆规则
 
-```pro
-
--keep class com.flyjingfish.switchkeyboardlib.** { *; }
-
-```
 
 **更多代码中使用方式如下：**
 
@@ -248,7 +242,13 @@ public class Example2Activity extends AppCompatActivity {
 
 4、如果**在DialogFragment中使用** 详情可看[ExampleDialogActivity](https://github.com/FlyJingFish/SwitchKeyboard/blob/master/app/src/main/java/com/flyjingfish/switchkeyboard/ExampleDialogActivity.java) 对应DialogFragment [InputDialog](https://github.com/FlyJingFish/SwitchKeyboard/blob/master/app/src/main/java/com/flyjingfish/switchkeyboard/InputDialog.java)
 
+## 混淆规则
 
+```pro
+
+-keep class com.flyjingfish.switchkeyboardlib.** { *; }
+
+```
 
 ## 特别注意(如果不注意的话可能会显示异常)
 
