@@ -230,6 +230,14 @@ public class Example2Activity extends AppCompatActivity {
 }
 ```
 
+## 混淆规则
+
+```pro
+
+-keep class com.flyjingfish.switchkeyboardlib.** { *; }
+
+```
+
 **更多代码中使用方式如下：**
 
 1、假如有按钮**在输入框一栏** 打开底部隐藏菜单时 详情可看[Example1Activity](https://github.com/FlyJingFish/SwitchKeyboard/blob/master/app/src/main/java/com/flyjingfish/switchkeyboard/Example1Activity.java) 对应布局 [activity_example1](https://github.com/FlyJingFish/SwitchKeyboard/blob/master/app/src/main/res/layout/activity_example1.xml)
